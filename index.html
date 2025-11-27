@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrea Borzì | Visual Artist</title>
-    <meta name="title" content="Andrea Borzì | Visual Artist">
-    <meta name="description" content="Andrea Borzì - Videomaker, 3D Artist & Photographer Portfolio. Crafting immersive digital experiences.">
-
+    <meta name="description" content="Andrea Borzì - Videomaker, 3D Artist & Photographer Portfolio">
+    
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://andrea-borzi.github.io/">
     <meta property="og:title" content="Andrea Borzì | Visual Artist">
-    <meta property="og:description" content="Videomaker, 3D Artist & Photographer Portfolio. Crafting immersive digital experiences.">
+    <meta property="og:description" content="Videomaker, 3D Artist & Photographer Portfolio.">
     <meta property="og:image" content="https://andrea-borzi.github.io/social-preview.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://andrea-borzi.github.io/">
     <meta name="twitter:title" content="Andrea Borzì | Visual Artist">
-    <meta name="twitter:description" content="Videomaker, 3D Artist & Photographer Portfolio. Crafting immersive digital experiences.">
+    <meta name="twitter:description" content="Videomaker, 3D Artist & Photographer Portfolio.">
     <meta name="twitter:image" content="https://andrea-borzi.github.io/social-preview.png">
 
     <link rel="icon" type="image/png" href="favicon.png?v=2">
@@ -28,9 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    
     <style>
-        /* ... (Il resto del tuo CSS rimane uguale, non serve reincollarlo qui) ... */
         /* --- 1. VARIABLES & RESET --- */
         :root {
             --bg: #161616;
@@ -56,31 +52,11 @@
         body.no-scroll { overflow: hidden; }
 
         /* --- PRO DETAILS (SCROLLBAR & SELECTION) --- */
-        
-        /* Firefox */
-        html {
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) var(--bg);
-        }
-
-        /* Chrome, Edge, Safari, Mobile WebKit */
-        ::-webkit-scrollbar {
-            width: 8px;
-            background-color: var(--bg);
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg); 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333; 
-            border-radius: 4px;
-            border: 2px solid var(--bg); /* Crea spazio intorno */
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-
-        /* Selezione Testo */
+        html { scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg); }
+        ::-webkit-scrollbar { width: 8px; background-color: var(--bg); }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
         ::selection { background: var(--accent); color: white; }
 
         /* --- 2. BACKGROUND --- */
@@ -100,14 +76,8 @@
             border-bottom: 1px solid var(--border);
         }
         
-        .logo { 
-            z-index: 1002; cursor: pointer;
-            display: flex; align-items: center;
-        }
-        .logo img {
-            height: 45px; width: auto; object-fit: contain;
-            transition: transform 0.3s ease;
-        }
+        .logo { z-index: 1002; cursor: pointer; display: flex; align-items: center; }
+        .logo img { height: 45px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
         .logo:hover img { transform: scale(1.05); }
 
         .nav-menu { display: flex; gap: 30px; }
@@ -130,7 +100,6 @@
             opacity: 0; pointer-events: none; transition: 0.4s ease-in-out;
         }
         .mobile-overlay.active { opacity: 1; pointer-events: all; }
-        
         .mobile-link { font-size: 2rem; font-weight: 800; text-transform: uppercase; color: white; opacity: 0; transform: translateY(20px); transition: 0.4s; }
         .mobile-link:hover { color: var(--accent); letter-spacing: 2px; }
         .mobile-overlay.active .mobile-link:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
@@ -144,33 +113,26 @@
             align-items: center; gap: 50px; position: relative;
             max-width: 1600px; margin: 0 auto;
         }
-
         .hero-content { z-index: 2; }
-
         .hero-intro {
             display: inline-block; padding: 8px 16px; border-radius: 50px;
             background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.25);
             color: var(--accent-bright); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem;
             width: fit-content; margin-bottom: 30px;
         }
-
         .hero-name {
             font-size: clamp(3rem, 5vw, 6rem); line-height: 1.1; font-weight: 800; text-transform: uppercase;
             margin-bottom: 25px; letter-spacing: -1px; color: white;
         }
         .name-first { font-size: 0.85em; font-weight: 700; display: block; }
         .name-last { font-size: 1em; }
-
         .hero-roles {
             font-size: clamp(1rem, 2vw, 1.3rem); color: var(--muted); font-weight: 400; letter-spacing: 1px; margin-bottom: 35px;
             text-transform: uppercase; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;
         }
         .hero-roles span { color: var(--text); font-weight: 700; }
         .separator { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
-
-        .hero-bio {
-            max-width: 550px; font-size: 1.05rem; line-height: 1.7; color: var(--muted); margin-bottom: 40px;
-        }
+        .hero-bio { max-width: 550px; font-size: 1.05rem; line-height: 1.7; color: var(--muted); margin-bottom: 40px; }
         .hero-bio strong { color: var(--text); font-weight: 600; }
 
         .hero-visual {
@@ -210,7 +172,6 @@
 
         /* --- 5. PORTFOLIO GRID --- */
         section { padding: 140px 5%; }
-        
         .section-header {
             display: flex; justify-content: space-between; align-items: flex-end;
             border-bottom: 1px solid var(--border); padding-bottom: 25px; margin-bottom: 70px;
@@ -228,25 +189,21 @@
         }
 
         .grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 40px;
-            perspective: 1000px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 40px; perspective: 1000px;
         }
 
         .card {
             background: var(--glass); border: 1px solid var(--border);
             aspect-ratio: 16/9; position: relative; overflow: hidden; cursor: pointer;
-            border-radius: 12px;
-            transition: transform 0.2s ease-out, border-color 0.3s;
+            border-radius: 12px; transition: transform 0.2s ease-out, border-color 0.3s;
             transform-style: preserve-3d;
         }
         .card:hover { border-color: var(--accent-bright); }
         .card img {
             width: 100%; height: 100%; object-fit: cover;
             transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1); 
-            opacity: 0.8; filter: grayscale(30%);
-            transform: translateZ(0);
+            opacity: 0.8; filter: grayscale(30%); transform: translateZ(0);
         }
         .card:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.03) translateZ(10px); }
 
@@ -275,19 +232,24 @@
 
         footer { padding: 80px 5%; text-align: center; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;}
 
-        /* --- MODALS --- */
-        .video-modal, .photo-modal {
+        /* --- MODALS (VIDEO & PHOTO) --- */
+        .video-modal, .photo-modal, .shorts-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.95); z-index: 3000;
             display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
             backdrop-filter: blur(10px);
         }
-        .video-modal.active, .photo-modal.active { opacity: 1; pointer-events: all; }
+        .video-modal.active, .photo-modal.active, .shorts-modal.active { opacity: 1; pointer-events: all; }
         
         .video-wrapper {
             width: 90%; max-width: 1200px; aspect-ratio: 16/9;
             position: relative; box-shadow: 0 0 50px rgba(139, 92, 246, 0.2);
+            transition: 0.3s;
+        }
+        /* Classe speciale per player verticale */
+        .video-wrapper.vertical-mode {
+            aspect-ratio: 9/16; max-width: 450px; width: 100%;
         }
         .video-wrapper iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
         
@@ -298,6 +260,16 @@
             max-width: 100%; max-height: 100%; width: auto; height: auto; 
             object-fit: contain; box-shadow: 0 0 30px rgba(0,0,0,0.5); border-radius: 4px;
         }
+
+        /* --- SHORTS MODAL STYLES --- */
+        .shorts-modal { z-index: 3300; } /* Sopra le altre */
+        .shorts-container { width: 100%; height: 90%; display: flex; justify-content: center; align-items: center; position: relative; }
+        .shorts-wrapper {
+            width: 100%; max-width: 400px; height: 100%; max-height: 750px;
+            position: relative; box-shadow: 0 0 50px rgba(139, 92, 246, 0.15);
+            background: #000; border-radius: 8px; overflow: hidden;
+        }
+        .shorts-wrapper iframe { width: 100%; height: 100%; border: none; }
 
         .close-btn {
             position: absolute; top: 20px; right: 30px;
@@ -310,7 +282,7 @@
             background: rgba(255, 255, 255, 0.1); color: white; border: none;
             width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
             font-size: 1.2rem; display: flex; justify-content: center; align-items: center;
-            transition: 0.3s; backdrop-filter: blur(5px);
+            transition: 0.3s; backdrop-filter: blur(5px); z-index: 3002;
         }
         .nav-btn:hover { background: var(--accent); transform: translateY(-50%) scale(1.1); box-shadow: 0 0 15px var(--glow); }
         .prev-btn { left: 10px; }
@@ -346,9 +318,7 @@
             .grid { grid-template-columns: 1fr; gap: 30px; }
             
             /* TITOLI E FOTO SEMPRE VISIBILI SU MOBILE */
-            .card img {
-                opacity: 1 !important; filter: none !important; transform: none !important;
-            }
+            .card img { opacity: 1 !important; filter: none !important; transform: none !important; }
             .card-overlay {
                 opacity: 1 !important; transform: none !important;
                 background: linear-gradient(to top, rgba(5, 5, 7, 0.9) 0%, transparent 100%); 
@@ -593,7 +563,7 @@
                 <img src="https://img.youtube.com/vi/7b-JryexLc4/maxresdefault.jpg" alt="Neuromate" loading="lazy">
                 <div class="card-overlay">
                     <span class="card-cat">Video / 3D</span>
-                    <div class="card-title">Neuromante</div>
+                    <div class="card-title">Neuromate</div>
                 </div>
             </div>
 
@@ -677,6 +647,17 @@
                 </div>
             </div>
 
+            <div class="card video" onclick="openShortsProject('urbanheroes')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
+                <img src="img/copertine/urbanheroes.jpg" alt="URBAN HEROES" loading="lazy">
+                <div class="card-overlay">
+                    <span class="card-cat">Shorts / Social</span>
+                    <div class="card-title">URBAN HEROES</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px; color: var(--accent-bright);">
+                        <i class="fa-solid fa-layer-group"></i> 15 Video
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -740,6 +721,28 @@
         <div class="photo-container">
             <img id="singleModalImage" src="" alt="Full Size Photo">
         </div>
+    </div>
+
+    <div class="shorts-modal" id="shortsModal">
+        <div class="close-btn" onclick="closeShorts()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        
+        <div class="shorts-container">
+            <button class="nav-btn prev-btn" onclick="changeShort(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <div class="shorts-wrapper">
+                <iframe id="shortsFrame" src="" allowtransparency="true" allowfullscreen></iframe>
+            </div>
+            
+            <button class="nav-btn next-btn" onclick="changeShort(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="photo-counter" id="shortsCounter">1 / 15</div>
     </div>
 
     <script>
@@ -869,6 +872,8 @@
 
         function openVideo(videoId) {
             modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            const wrapper = document.querySelector('.video-wrapper');
+            wrapper.classList.remove('vertical-mode'); // Reset per YT
             modal.classList.add('active');
             document.body.classList.add('no-scroll'); 
         }
@@ -883,7 +888,6 @@
         const photoProjects = {
             'cittainv': [], 'sagata': [], 'seriecatania': []
         };
-
         for (let i = 1; i <= 18; i++) photoProjects['cittainv'].push(`img/cittainv/${i}.jpg`);
         for (let i = 1; i <= 30; i++) {
             let fileName = i.toString().padStart(2, '0') + ".jpg";
@@ -940,20 +944,12 @@
         // TOUCH SWIPE LOGIC
         let touchStartX = 0;
         let touchEndX = 0;
-
-        photoModal.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
+        photoModal.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
         photoModal.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            if (touchEndX < touchStartX - 50) changePhoto(1);
+            if (touchEndX > touchStartX + 50) changePhoto(-1);
         });
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) changePhoto(1); // Swipe Left -> Next
-            if (touchEndX > touchStartX + 50) changePhoto(-1); // Swipe Right -> Prev
-        }
 
         // 7. SINGLE PHOTO MODAL LOGIC
         const singleModal = document.getElementById('singlePhotoModal');
@@ -964,11 +960,63 @@
             singleModal.classList.add('active');
             document.body.classList.add('no-scroll');
         }
-
         function closeSinglePhoto() {
             singleModal.classList.remove('active');
             document.body.classList.remove('no-scroll');
             setTimeout(() => { singleModalImage.src = ""; }, 300);
+        }
+
+        // 8. SHORTS / INSTAGRAM GALLERY LOGIC
+        const shortsProjects = {
+            'urbanheroes': [
+                'DOES_ihjSln', 'DOWcgwKjRbk', 'DQ4cuzYDVjL', 'DQp11fTiF2k', 'DQVS9ALCJcm',
+                'DQNxZVRAl9n', 'DP3hapwDS7w', 'DPqXpOWjRZK', 'DPqXOe_DemE', 'DPOtB4jDYNn',
+                'DO9DuHXDY3q', 'DOoGKEJjXdJ', 'DOoiBa7jeEJ', 'DObZmNnjdtu', 'DO5p9hqjTvF'
+            ]
+        };
+
+        let currentShortsKey = '';
+        let currentShortIndex = 0;
+        const shortsModal = document.getElementById('shortsModal');
+        const shortsFrame = document.getElementById('shortsFrame');
+        const shortsCounter = document.getElementById('shortsCounter');
+
+        function openShortsProject(projectKey) {
+            if (!shortsProjects[projectKey]) return;
+            currentShortsKey = projectKey;
+            currentShortIndex = 0;
+            updateShortsDisplay();
+            shortsModal.classList.add('active');
+            document.body.classList.add('no-scroll');
+            document.addEventListener('keydown', handleShortsKeys);
+        }
+
+        function closeShorts() {
+            shortsModal.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            setTimeout(() => { shortsFrame.src = ""; }, 300);
+            document.removeEventListener('keydown', handleShortsKeys);
+        }
+
+        function changeShort(direction) {
+            const total = shortsProjects[currentShortsKey].length;
+            currentShortIndex += direction;
+            if (currentShortIndex >= total) currentShortIndex = 0;
+            if (currentShortIndex < 0) currentShortIndex = total - 1;
+            updateShortsDisplay();
+        }
+
+        function updateShortsDisplay() {
+            const shortId = shortsProjects[currentShortsKey][currentShortIndex];
+            const total = shortsProjects[currentShortsKey].length;
+            shortsFrame.src = `https://www.instagram.com/p/${shortId}/embed/captioned/`;
+            shortsCounter.innerText = `${currentShortIndex + 1} / ${total}`;
+        }
+
+        function handleShortsKeys(e) {
+            if(e.key === "ArrowRight") changeShort(1);
+            if(e.key === "ArrowLeft") changeShort(-1);
+            if(e.key === "Escape") closeShorts();
         }
     </script>
 </body>

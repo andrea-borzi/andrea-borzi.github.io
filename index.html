@@ -328,6 +328,22 @@
             .nav-btn { width: 40px; height: 40px; font-size: 1rem; background: rgba(0,0,0,0.5); }
             .prev-btn { left: 0; } .next-btn { right: 0; }
         }
+
+        /* --- VIDEO GALLERY MODAL --- */
+.video-gallery-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); z-index: 3000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+.video-gallery-modal.active { opacity: 1; pointer-events: all; }
+.video-gallery-container { 
+    width: 100%; height: 90%; 
+    display: flex; justify-content: center; align-items: center; 
+    position: relative; 
+}
+/* Ereditiamo lo stile esistente di .video-wrapper per la responsività perfetta */
     </style>
 </head>
 <body>
@@ -423,70 +439,16 @@
                 </div>
             </div>
 
-            <div class="card video" onclick="openVideo('mEen8M9Yg5M')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/mEen8M9Yg5M/maxresdefault.jpg" alt="7 auto da evitare" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">7 auto da evitare</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('FmfsW_Otivs')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/FmfsW_Otivs/maxresdefault.jpg" alt="Non fare benzina in questi distributori" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">Non fare benzina in questi distributori</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('PYKwVyr5N8c')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/PYKwVyr5N8c/maxresdefault.jpg" alt="7 suv che non si rompono mai" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">7 suv che non si rompono mai</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('y1dRfZjPBM4')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/y1dRfZjPBM4/maxresdefault.jpg" alt="Le 7 Auto che nessuno vuole" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">Le 7 Auto che nessuno vuole</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('5fu5y1pFiBQ')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/5fu5y1pFiBQ/maxresdefault.jpg" alt="8 funzioni auto" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">8 Funzioni nascoste auto giapponesi</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('1Vf27p-9Ou8')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/1Vf27p-9Ou8/maxresdefault.jpg" alt="Stazioni di servizio" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">Stazioni di servizio che Distruggono la tua auto</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('zD1AcuRxY7A')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/zD1AcuRxY7A/maxresdefault.jpg" alt="Come Far Durare la tua Toyota Senza Costose Riparazioni" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">Come Far Durare la tua Toyota Senza Costose Riparazioni</div>
-                </div>
-            </div>
-
-            <div class="card video" onclick="openVideo('G_TqUIiHxjc')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
-                <img src="https://img.youtube.com/vi/G_TqUIiHxjc/maxresdefault.jpg" alt="Il METODO GIAPPONESE Che fa Durare la tua Toyota" loading="lazy">
-                <div class="card-overlay">
-                    <span class="card-cat">Video</span>
-                    <div class="card-title">Il METODO GIAPPONESE Che fa Durare la tua Toyota</div>
-                </div>
-            </div>
-
+            <div class="card video" onclick="openVideoGallery('tuttomotori')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
+    <img src="https://img.youtube.com/vi/mEen8M9Yg5M/maxresdefault.jpg" alt="Tutto Motori Series" loading="lazy">
+    <div class="card-overlay">
+        <span class="card-cat">Video / Automotive</span>
+        <div class="card-title">Tutto Motori</div>
+        <div style="font-size: 0.8rem; margin-top: 5px; color: var(--accent-bright);">
+            <i class="fa-solid fa-layer-group"></i> 8 Video
+        </div>
+    </div>
+</div>
             <div class="card video" onclick="openVideo('sIhNfDjRb3Q')" onmousemove="cardTilt(event, this)" onmouseleave="cardReset(this)">
                 <img src="https://img.youtube.com/vi/sIhNfDjRb3Q/maxresdefault.jpg" alt="10 Città Italiane Dove le Case Costano Meno di una panda" loading="lazy">
                 <div class="card-overlay">
@@ -841,6 +803,28 @@
         </div>
     </div>
 
+    <div class="video-gallery-modal" id="videoGalleryModal">
+    <div class="close-btn" onclick="closeVideoGallery()">
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+    
+    <div class="video-gallery-container">
+        <button class="nav-btn prev-btn" onclick="changeVideoGallery(-1)">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        
+        <div class="video-wrapper">
+            <iframe id="videoGalleryFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <button class="nav-btn next-btn" onclick="changeVideoGallery(1)">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+    
+    <div class="photo-counter" id="videoGalleryCounter">1 / 8</div>
+</div>
+
     <div class="photo-modal" id="photoModal">
         <div class="close-btn" onclick="closePhoto()">
             <i class="fa-solid fa-xmark"></i>
@@ -1030,6 +1014,7 @@
             document.body.classList.remove('no-scroll');
             setTimeout(() => { modalFrame.src = ""; }, 400);
         }
+        
 
         // 6. PHOTO GALLERY LOGIC
         const photoProjects = {
@@ -1121,6 +1106,72 @@
                 'DO9DuHXDY3q', 'DOoGKEJjXdJ', 'DOoiBa7jeEJ', 'DObZmNnjdtu', 'DO5p9hqjTvF'
             ]
         };
+
+        // --- 9. VIDEO GALLERY LOGIC (Es. Tutto Motori) ---
+const videoGalleryProjects = {
+    // Per aggiungere un'altra cartella, crea un nuovo nome e incolla gli ID di YouTube!
+    'tuttomotori': [
+        'mEen8M9Yg5M', 'FmfsW_Otivs', 'PYKwVyr5N8c', 'y1dRfZjPBM4', 
+        '5fu5y1pFiBQ', '1Vf27p-9Ou8', 'zD1AcuRxY7A', 'G_TqUIiHxjc'
+    ]
+};
+
+let currentVideoGalleryKey = '';
+let currentVideoGalleryIndex = 0;
+const videoGalleryModal = document.getElementById('videoGalleryModal');
+const videoGalleryFrame = document.getElementById('videoGalleryFrame');
+const videoGalleryCounter = document.getElementById('videoGalleryCounter');
+
+function openVideoGallery(projectKey) {
+    if (!videoGalleryProjects[projectKey]) return;
+    currentVideoGalleryKey = projectKey;
+    currentVideoGalleryIndex = 0;
+    updateVideoGalleryDisplay();
+    videoGalleryModal.classList.add('active');
+    document.body.classList.add('no-scroll');
+    document.addEventListener('keydown', handleVideoGalleryKeys);
+}
+
+function closeVideoGallery() {
+    videoGalleryModal.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+    setTimeout(() => { videoGalleryFrame.src = ""; }, 300); // Stoppa l'audio
+    document.removeEventListener('keydown', handleVideoGalleryKeys);
+}
+
+function changeVideoGallery(direction) {
+    const total = videoGalleryProjects[currentVideoGalleryKey].length;
+    currentVideoGalleryIndex += direction;
+    // Effetto Loop
+    if (currentVideoGalleryIndex >= total) currentVideoGalleryIndex = 0;
+    if (currentVideoGalleryIndex < 0) currentVideoGalleryIndex = total - 1;
+    updateVideoGalleryDisplay();
+}
+
+function updateVideoGalleryDisplay() {
+    const videoId = videoGalleryProjects[currentVideoGalleryKey][currentVideoGalleryIndex];
+    const total = videoGalleryProjects[currentVideoGalleryKey].length;
+    // Autoplay attivato per far partire il video appena si scorre
+    videoGalleryFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    videoGalleryCounter.innerText = `${currentVideoGalleryIndex + 1} / ${total}`;
+}
+
+// Supporto Tastiera
+function handleVideoGalleryKeys(e) {
+    if(e.key === "ArrowRight") changeVideoGallery(1);
+    if(e.key === "ArrowLeft") changeVideoGallery(-1);
+    if(e.key === "Escape") closeVideoGallery();
+}
+
+// Supporto Touch Swipe per Mobile
+let vgTouchStartX = 0;
+let vgTouchEndX = 0;
+videoGalleryModal.addEventListener('touchstart', e => vgTouchStartX = e.changedTouches[0].screenX);
+videoGalleryModal.addEventListener('touchend', e => {
+    vgTouchEndX = e.changedTouches[0].screenX;
+    if (vgTouchEndX < vgTouchStartX - 50) changeVideoGallery(1); // Swipe Sinistra
+    if (vgTouchEndX > vgTouchStartX + 50) changeVideoGallery(-1); // Swipe Destra
+});
 
         let currentShortsKey = '';
         let currentShortIndex = 0;

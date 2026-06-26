@@ -1,0 +1,41 @@
+name: Sync Tutto Motori
+
+# Aggiorna data/tuttomotori.json leggendo il feed RSS pubblico del canale.
+# - Parte ogni giorno alle 06:00 UTC (i nuovi video compaiono entro ~1 giorno).
+# - Si può lanciare anche a mano dalla tab "Actions" (workflow_dispatch).
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+# Serve per poter committare il JSON aggiornato nel repo.
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync feed -> data/tuttomotori.json
+        run: node scripts/sync-tuttomotori.mjs
+
+      - name: Commit changes (solo se ci sono novità)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain data/tuttomotori.json)" ]]; then
+            git add data/tuttomotori.json
+            git commit -m "chore: sync Tutto Motori videos"
+            git push
+            echo "Aggiornato data/tuttomotori.json"
+          else
+            echo "Nessuna novità: niente da committare."
+          fi

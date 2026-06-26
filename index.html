@@ -210,15 +210,37 @@ footer .mono{font-size:.66rem;}
   .stat:nth-child(odd){border-left:none;padding-left:var(--pad);}
   .case-cols,.serv-grid,.case-metrics{grid-template-columns:1fr;}
   .case-metrics{gap:30px;}
+  .room-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:720px){
-  .nav-links{display:none;}
-  .nav-toggle{display:block;}
-  .proof-grid{grid-template-columns:1fr;}
-  .stat{border-left:none;padding-left:var(--pad);}
+  nav{padding:14px var(--pad);}
+  .nav-links,.nav-toggle{display:none;}
+  .scroll-cue{display:none;}
+  .hero{padding-top:84px;min-height:auto;}
+  .proof-grid{grid-template-columns:1fr 1fr;}
+  .stat{padding:26px var(--pad);border-left:none;}
+  .stat:nth-child(odd){border-left:none;}
+  .stat:nth-child(even){border-left:1px solid var(--line);padding-left:clamp(20px,4vw,40px);}
   .room-grid{grid-template-columns:1fr;}
+  .tile{aspect-ratio:16/9;}
   .tile.lg{grid-column:span 1;}
   .room-lead{margin-top:-18px;}
+  .case-hero{aspect-ratio:16/10;}
+  .hero-actions .btn,.cta-links .btn{flex:1 1 auto;justify-content:center;}
+  .serv{padding-block:clamp(56px,12vw,90px);}
+  .svc{padding:28px;}
+  /* modali: controlli più piccoli e vicini ai bordi */
+  .m-close{top:16px;right:16px;}
+  .m-nav{width:40px;height:40px;}
+  .m-prev{left:8px;} .m-next{right:8px;}
+  .m-frame{width:94vw;}
+}
+@media(max-width:440px){
+  .proof-grid{grid-template-columns:1fr;}
+  .stat{border-left:none!important;padding-left:var(--pad)!important;}
+  .contact-row{gap:18px 22px;}
+  .nav-cta{padding:8px 12px;font-size:.66rem;}
+  .brand{font-size:.95rem;}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
@@ -272,7 +294,6 @@ footer .mono{font-size:.66rem;}
 <!-- ============ PROOF ============ -->
 <section class="proof">
   <div class="proof-grid">
-    <!-- TODO: aggiorna i numeri con quelli reali -->
     <div class="stat"><div class="n"><b>40</b>+</div><div class="k mono">Selected works</div></div>
     <div class="stat"><div class="n"><b>4</b></div><div class="k mono">Disciplines, one pipeline</div></div>
     <div class="stat"><div class="n">BFA</div><div class="k mono">Academy of Fine Arts · Catania</div></div>
@@ -303,6 +324,8 @@ footer .mono{font-size:.66rem;}
       <div class="metric"><div class="v">100%</div><div class="l mono">Solo production</div></div>
       <div class="metric"><div class="v">3→1</div><div class="l mono">Crafts, one timeline</div></div>
       <div class="metric"><div class="v">0</div><div class="l mono">Hand-offs between teams</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ SERVICES ============ -->
@@ -326,7 +349,7 @@ footer .mono{font-size:.66rem;}
     <span class="mono mono-vio rv">Have a project in mind?</span>
     <h2 class="rv">Let's make<br>something <em>worth watching.</em></h2>
     <div class="cta-links rv">
-      <a href="mailto:borzi.andrea98@gmail.com" class="btn btn-fill">borzi.andrea98@gmail.com</a>
+      <a href="mailto:borzi.andrea98@gmail.com" class="btn btn-fill">Get in touch</a>
       <a href="https://api.whatsapp.com/send/?phone=3461407638" target="_blank" rel="noopener" class="btn btn-line">WhatsApp</a>
     </div>
     <div class="contact-row rv">
@@ -349,7 +372,7 @@ footer .mono{font-size:.66rem;}
   <div class="m-frame"><iframe id="vFrame" src="" title="Video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
 </div>
 
-<div class="modal" id="mGallery">
+<div class="modal" id="mGallery" onclick="if(event.target===this)closeGallery()">
   <button class="m-close" onclick="closeGallery()" aria-label="Close">CLOSE ✕</button>
   <button class="m-nav m-prev" onclick="stepGallery(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="m-frame"><iframe id="gFrame" src="" title="Video gallery" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
@@ -357,7 +380,7 @@ footer .mono{font-size:.66rem;}
   <div class="m-count" id="gCount">1 / 1</div>
 </div>
 
-<div class="modal" id="mPhoto">
+<div class="modal" id="mPhoto" onclick="if(event.target===this)closePhoto()">
   <button class="m-close" onclick="closePhoto()" aria-label="Close">CLOSE ✕</button>
   <button class="m-nav m-prev" onclick="stepPhoto(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="m-photo"><img id="pImg" src="" alt="Project photo"></div>
@@ -370,7 +393,7 @@ footer .mono{font-size:.66rem;}
   <div class="m-photo"><img id="sImg" src="" alt="Full size"></div>
 </div>
 
-<div class="modal" id="mShorts">
+<div class="modal" id="mShorts" onclick="if(event.target===this)closeShorts()">
   <button class="m-close" onclick="closeShorts()" aria-label="Close">CLOSE ✕</button>
   <button class="m-nav m-prev" onclick="stepShorts(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="m-shorts"><iframe id="shFrame" src="" title="Short" allowtransparency="true" allowfullscreen></iframe></div>

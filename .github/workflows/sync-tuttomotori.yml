@@ -3,14 +3,31 @@ name: Sync Tutto Motori
 # Aggiorna data/tuttomotori.json leggendo il feed RSS pubblico del canale.
 # - Parte ogni giorno alle 06:00 UTC (i nuovi video compaiono entro ~1 giorno).
 # - Si può lanciare anche a mano dalla tab "Actions" (workflow_dispatch).
+# - Parte anche a ogni push su main: così un aggiornamento del sito
+#   riattiva automaticamente la schedulazione se era stata sospesa.
+#
+# PERCHÉ SI FERMAVA: GitHub disattiva i workflow schedulati dopo 60 giorni
+# senza attività nel repository. Lo step "Keepalive" qui sotto chiama l'API
+# di GitHub a ogni esecuzione e azzera quel timer, quindi la schedulazione
+# non viene più sospesa. Se il workflow risulta già disattivato, va
+# riattivato UNA volta a mano: tab Actions -> "Sync Tutto Motori" ->
+# "Enable workflow" (o basta questo push).
 on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
+  push:
+    branches: [main]
 
-# Serve per poter committare il JSON aggiornato nel repo.
+# contents: write  -> per committare il JSON aggiornato
+# actions: write   -> per il keepalive (reset del timer dei 60 giorni)
 permissions:
   contents: write
+  actions: write
+
+concurrency:
+  group: sync-tuttomotori
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -39,3 +56,11 @@ jobs:
           else
             echo "Nessuna novità: niente da committare."
           fi
+
+      - name: Keepalive (evita la sospensione dopo 60 giorni)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/sync-tuttomotori.yml/enable" \
+            && echo "Keepalive OK: timer dei 60 giorni azzerato." \
+            || echo "Keepalive fallito (non blocca la sync)."

@@ -5,7 +5,7 @@
       "disc": "motion",
       "size": "lg",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/nVuFhhDlVjc/maxresdefault.jpg",
+      "thumb": "img/youtube/nVuFhhDlVjc.jpg",
       "meta": "Opening Sequence / 3D",
       "title": "Zodiac",
       "act": "video",
@@ -14,13 +14,15 @@
       "featured": true,
       "kind": "Progetto personale",
       "description": "Una sequenza di apertura che esplora il rapporto tra tipografia, atmosfera e immagini tridimensionali.",
-      "role": "Motion design e 3D"
+      "role": "Motion design e 3D",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "size": "lg",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/jZCNAaDzrM0/maxresdefault.jpg",
+      "thumb": "img/youtube/jZCNAaDzrM0.jpg",
       "meta": "Short Film / 3D",
       "title": "L'ultima delle borracce",
       "act": "video",
@@ -28,13 +30,15 @@
       "slug": "l-ultima-delle-borracce",
       "featured": true,
       "kind": "Progetto selezionato",
-      "description": "Short Film / 3D · L'ultima delle borracce"
+      "description": "Short Film / 3D · L'ultima delle borracce",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "size": "lg",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/nYB5lpruJm4/maxresdefault.jpg",
+      "thumb": "img/youtube/nYB5lpruJm4.jpg",
       "meta": "Automotive · Client",
       "title": "Tutto Motori",
       "act": "videogallery",
@@ -44,7 +48,9 @@
       "featured": true,
       "role": "Montaggio, testi, motion graphics, color e animazioni",
       "kind": "Collaborazione",
-      "description": "Contenuti editoriali dedicati al mondo automotive. Testi, montaggio e animazione lavorano insieme per dare struttura e ritmo alle informazioni."
+      "description": "Contenuti editoriali dedicati al mondo automotive. Testi, montaggio e animazione lavorano insieme per dare struttura e ritmo alle informazioni.",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
@@ -59,12 +65,14 @@
       "featured": true,
       "role": "Montaggio, testi, motion graphics, color e animazioni",
       "kind": "Collaborazione",
-      "description": "Contenuti per i social: testi, montaggio, animazioni e color in un formato pensato per lo schermo verticale."
+      "description": "Contenuti per i social: testi, montaggio, animazioni e color in un formato pensato per lo schermo verticale.",
+      "thumbWidth": 649,
+      "thumbHeight": 1174
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/p06bGhyQclM/maxresdefault.jpg",
+      "thumb": "img/youtube/p06bGhyQclM.jpg",
       "meta": "Trailer / 3D",
       "title": "Silentropy",
       "act": "video",
@@ -72,12 +80,14 @@
       "slug": "silentropy",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Trailer / 3D · Silentropy"
+      "description": "Trailer / 3D · Silentropy",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/sIhNfDjRb3Q/maxresdefault.jpg",
+      "thumb": "img/youtube/sIhNfDjRb3Q.jpg",
       "meta": "Video",
       "title": "10 Città Italiane",
       "act": "video",
@@ -85,12 +95,14 @@
       "slug": "10-citta-italiane",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · 10 Città Italiane"
+      "description": "Video · 10 Città Italiane",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/z_NkV16GnfI/hqdefault.jpg",
+      "thumb": "img/youtube/z_NkV16GnfI.jpg",
       "meta": "Spot / AI",
       "title": "Spot Gangi AI",
       "act": "video",
@@ -98,12 +110,14 @@
       "slug": "spot-gangi-ai",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Spot / AI · Spot Gangi AI"
+      "description": "Spot / AI · Spot Gangi AI",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/Pg9wVgCvzsw/hqdefault.jpg",
+      "thumb": "img/youtube/Pg9wVgCvzsw.jpg",
       "meta": "Video / 3D",
       "title": "360 Weekend",
       "act": "video",
@@ -111,12 +125,14 @@
       "slug": "360-weekend",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video / 3D · 360 Weekend"
+      "description": "Video / 3D · 360 Weekend",
+      "thumbWidth": 480,
+      "thumbHeight": 360
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/pgRkEw93LSE/maxresdefault.jpg",
+      "thumb": "img/youtube/pgRkEw93LSE.jpg",
       "meta": "Edit / Gaming",
       "title": "Love Again",
       "act": "video",
@@ -124,12 +140,14 @@
       "slug": "love-again",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit / Gaming · Love Again"
+      "description": "Edit / Gaming · Love Again",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/Tl7e3HIeyXg/maxresdefault.jpg",
+      "thumb": "img/youtube/Tl7e3HIeyXg.jpg",
       "meta": "Color",
       "title": "Color Grading",
       "act": "video",
@@ -137,12 +155,14 @@
       "slug": "color-grading",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Color · Color Grading"
+      "description": "Color · Color Grading",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/DI0r0O9jBiE/maxresdefault.jpg",
+      "thumb": "img/youtube/DI0r0O9jBiE.jpg",
       "meta": "Color",
       "title": "Color Grading 2",
       "act": "video",
@@ -150,12 +170,14 @@
       "slug": "color-grading-2",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Color · Color Grading 2"
+      "description": "Color · Color Grading 2",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/I4gDK1ujNIs/maxresdefault.jpg",
+      "thumb": "img/youtube/I4gDK1ujNIs.jpg",
       "meta": "Video",
       "title": "Educational",
       "act": "video",
@@ -163,12 +185,14 @@
       "slug": "educational",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · Educational"
+      "description": "Video · Educational",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/JUmq43ldIAc/hqdefault.jpg",
+      "thumb": "img/youtube/JUmq43ldIAc.jpg",
       "meta": "Spot",
       "title": "Spot Levi's",
       "act": "video",
@@ -176,12 +200,14 @@
       "slug": "spot-levi-s",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Spot · Spot Levi's"
+      "description": "Spot · Spot Levi's",
+      "thumbWidth": 640,
+      "thumbHeight": 480
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/1y90IaeRPj8/maxresdefault.jpg",
+      "thumb": "img/youtube/1y90IaeRPj8.jpg",
       "meta": "Spot",
       "title": "Merlino Spot",
       "act": "video",
@@ -189,12 +215,14 @@
       "slug": "merlino-spot",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Spot · Merlino Spot"
+      "description": "Spot · Merlino Spot",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/aoS_sAaQHDc/maxresdefault.jpg",
+      "thumb": "img/youtube/aoS_sAaQHDc.jpg",
       "meta": "Video Essay",
       "title": "Tabù Freud",
       "act": "video",
@@ -202,12 +230,14 @@
       "slug": "tabu-freud",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video Essay · Tabù Freud"
+      "description": "Video Essay · Tabù Freud",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/8mQ_yogXGR4/maxresdefault.jpg",
+      "thumb": "img/youtube/8mQ_yogXGR4.jpg",
       "meta": "Video",
       "title": "Radiant Rose Academy",
       "act": "video",
@@ -215,12 +245,14 @@
       "slug": "radiant-rose-academy",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · Radiant Rose Academy"
+      "description": "Video · Radiant Rose Academy",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/7b-JryexLc4/maxresdefault.jpg",
+      "thumb": "img/youtube/7b-JryexLc4.jpg",
       "meta": "Video / 3D",
       "title": "Neuromate",
       "act": "video",
@@ -228,12 +260,14 @@
       "slug": "neuromate",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video / 3D · Neuromate"
+      "description": "Video / 3D · Neuromate",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/DWawEjEMTV8/hqdefault.jpg",
+      "thumb": "img/youtube/DWawEjEMTV8.jpg",
       "meta": "Video",
       "title": "Trial",
       "act": "video",
@@ -241,12 +275,14 @@
       "slug": "trial",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · Trial"
+      "description": "Video · Trial",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/ldnKlDge_DI/maxresdefault.jpg",
+      "thumb": "img/youtube/ldnKlDge_DI.jpg",
       "meta": "Sound Design",
       "title": "Oriental Sounds",
       "act": "video",
@@ -254,12 +290,14 @@
       "slug": "oriental-sounds",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Sound Design · Oriental Sounds"
+      "description": "Sound Design · Oriental Sounds",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/OCeLSYDUH0A/maxresdefault.jpg",
+      "thumb": "img/youtube/OCeLSYDUH0A.jpg",
       "meta": "Video",
       "title": "Madness",
       "act": "video",
@@ -267,12 +305,14 @@
       "slug": "madness",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · Madness"
+      "description": "Video · Madness",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/tnXoEwYNfNs/hqdefault.jpg",
+      "thumb": "img/youtube/tnXoEwYNfNs.jpg",
       "meta": "Edit",
       "title": "Fatalyst 3",
       "act": "video",
@@ -280,12 +320,14 @@
       "slug": "fatalyst-3",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit · Fatalyst 3"
+      "description": "Edit · Fatalyst 3",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/a2N1kuXLadI/maxresdefault.jpg",
+      "thumb": "img/youtube/a2N1kuXLadI.jpg",
       "meta": "Edit",
       "title": "Synestia",
       "act": "video",
@@ -293,12 +335,14 @@
       "slug": "synestia",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit · Synestia"
+      "description": "Edit · Synestia",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/xU2FKKIwA_Q/hqdefault.jpg",
+      "thumb": "img/youtube/xU2FKKIwA_Q.jpg",
       "meta": "Edit",
       "title": "Mount Sinai",
       "act": "video",
@@ -306,12 +350,14 @@
       "slug": "mount-sinai",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit · Mount Sinai"
+      "description": "Edit · Mount Sinai",
+      "thumbWidth": 480,
+      "thumbHeight": 360
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/hD8ZznbrI8U/hqdefault.jpg",
+      "thumb": "img/youtube/hD8ZznbrI8U.jpg",
       "meta": "Edit / 3D",
       "title": "Let it happen",
       "act": "video",
@@ -319,12 +365,14 @@
       "slug": "let-it-happen",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit / 3D · Let it happen"
+      "description": "Edit / 3D · Let it happen",
+      "thumbWidth": 1280,
+      "thumbHeight": 720
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/iiFChGvqTWo/hqdefault.jpg",
+      "thumb": "img/youtube/iiFChGvqTWo.jpg",
       "meta": "Edit",
       "title": "Girlfriend",
       "act": "video",
@@ -332,12 +380,14 @@
       "slug": "girlfriend",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Edit · Girlfriend"
+      "description": "Edit · Girlfriend",
+      "thumbWidth": 480,
+      "thumbHeight": 360
     },
     {
       "disc": "motion",
       "yt": 1,
-      "thumb": "https://img.youtube.com/vi/Kqd5RLwbCUw/hqdefault.jpg",
+      "thumb": "img/youtube/Kqd5RLwbCUw.jpg",
       "meta": "Video",
       "title": "Editor's Life",
       "act": "video",
@@ -345,7 +395,9 @@
       "slug": "editor-s-life",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Video · Editor's Life"
+      "description": "Video · Editor's Life",
+      "thumbWidth": 640,
+      "thumbHeight": 480
     },
     {
       "disc": "dimension",
@@ -358,7 +410,9 @@
       "slug": "ship",
       "featured": true,
       "kind": "Progetto selezionato",
-      "description": "3D Render · Ship"
+      "description": "3D Render · Ship",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "dimension",
@@ -370,7 +424,9 @@
       "slug": "ship-ii",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "3D Render · Ship II"
+      "description": "3D Render · Ship II",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "dimension",
@@ -382,7 +438,9 @@
       "slug": "chess",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "3D Render · Chess"
+      "description": "3D Render · Chess",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "dimension",
@@ -394,7 +452,9 @@
       "slug": "darts",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "3D Render · Darts"
+      "description": "3D Render · Darts",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "dimension",
@@ -406,7 +466,9 @@
       "slug": "guerra-e-pace",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "3D · Guerra e Pace"
+      "description": "3D · Guerra e Pace",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "dimension",
@@ -418,7 +480,9 @@
       "slug": "pope-tarot-ar",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "AR · Pope Tarot AR"
+      "description": "AR · Pope Tarot AR",
+      "thumbWidth": 1748,
+      "thumbHeight": 2480
     },
     {
       "disc": "dimension",
@@ -430,7 +494,9 @@
       "slug": "ar-t-letter",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "AR · AR · T Letter"
+      "description": "AR · AR · T Letter",
+      "thumbWidth": 1920,
+      "thumbHeight": 2715
     },
     {
       "disc": "dimension",
@@ -442,7 +508,9 @@
       "slug": "album-ar-animation",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "AR / Video · Album AR Animation"
+      "description": "AR / Video · Album AR Animation",
+      "thumbWidth": 1920,
+      "thumbHeight": 1920
     },
     {
       "disc": "systems",
@@ -455,7 +523,9 @@
       "slug": "cyberpunk-academy",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Game / p5.js · Cyberpunk Academy"
+      "description": "Game / p5.js · Cyberpunk Academy",
+      "thumbWidth": 761,
+      "thumbHeight": 768
     },
     {
       "disc": "systems",
@@ -467,7 +537,9 @@
       "slug": "future-vibes-space",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "3D Space · Future Vibes Space"
+      "description": "3D Space · Future Vibes Space",
+      "thumbWidth": 1920,
+      "thumbHeight": 870
     },
     {
       "disc": "systems",
@@ -479,7 +551,9 @@
       "slug": "html-portfolio",
       "featured": false,
       "kind": "Progetto selezionato",
-      "description": "Web / Dev · HTML Portfolio"
+      "description": "Web / Dev · HTML Portfolio",
+      "thumbWidth": 1920,
+      "thumbHeight": 929
     },
     {
       "disc": "light",
@@ -493,7 +567,9 @@
       "slug": "citta-invisibili",
       "featured": true,
       "kind": "Serie e studi visivi",
-      "description": "Photo Series · Città Invisibili"
+      "description": "Photo Series · Città Invisibili",
+      "thumbWidth": 1920,
+      "thumbHeight": 1275
     },
     {
       "disc": "light",
@@ -506,7 +582,9 @@
       "slug": "sant-agata",
       "featured": false,
       "kind": "Serie e studi visivi",
-      "description": "Photo Series · Sant'Agata"
+      "description": "Photo Series · Sant'Agata",
+      "thumbWidth": 1920,
+      "thumbHeight": 1080
     },
     {
       "disc": "light",
@@ -519,7 +597,9 @@
       "slug": "catania-serie-c",
       "featured": false,
       "kind": "Serie e studi visivi",
-      "description": "Photo Series · Catania · Serie C"
+      "description": "Photo Series · Catania · Serie C",
+      "thumbWidth": 1920,
+      "thumbHeight": 1275
     },
     {
       "disc": "light",
@@ -531,7 +611,9 @@
       "slug": "the-witcher-3",
       "featured": false,
       "kind": "Serie e studi visivi",
-      "description": "Virtual Photo · The Witcher 3"
+      "description": "Virtual Photo · The Witcher 3",
+      "thumbWidth": 1536,
+      "thumbHeight": 1152
     },
     {
       "disc": "light",
@@ -543,7 +625,9 @@
       "slug": "the-witcher-3-ii",
       "featured": false,
       "kind": "Serie e studi visivi",
-      "description": "Virtual Photo · The Witcher 3 · II"
+      "description": "Virtual Photo · The Witcher 3 · II",
+      "thumbWidth": 1690,
+      "thumbHeight": 1056
     }
   ],
   "photos": {

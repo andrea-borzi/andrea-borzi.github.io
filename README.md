@@ -51,3 +51,11 @@ Il sito emette eventi locali `portfolio:interaction` per apertura progetto, show
 ## Materiale editoriale ancora utile
 
 Testimonianze autentiche, ritratto/backstage e breakdown di lavorazione possono arricchire il sito in seguito. Non sono stati inventati. Le tavole AR sono dichiarate immagini di presentazione; una demo reale va fornita prima di promettere un’esperienza interattiva.
+
+## Lingue, immagini e privacy
+
+- Italiano alla radice, inglese in `/en/`. `assets/i18n.mjs` contiene le traduzioni dell’interfaccia; i titoli originali delle opere/video restano invariati. `scripts/localize.mjs` genera pagine inglesi, collegamenti lingua e sitemap durante la build.
+- Font con licenze OFL e miniature YouTube sono ospitati localmente: nessuna richiesta ai loro fornitori durante la normale consultazione. Le copertine sono salvate alla migliore risoluzione disponibile, senza ricompressione.
+- Originali necessari per migliorare ulteriormente: 360 Weekend, Mount Sinai e Girlfriend (480×360); Spot Levi’s ed Editor’s Life (640×480). Urban Heroes è un’immagine verticale 649×1174: viene mostrata intera, senza ritaglio panoramico. Sostituire i file e aggiornare thumbWidth/thumbHeight in data/portfolio.json quando disponibili.
+- I lettori esterni richiedono consenso nella galleria. La scelta è solo in memoria e termina alla chiusura; nessun cookie o localStorage viene scritto dal portfolio. I cookie eventualmente impostati dai fornitori dopo il consenso vanno rimossi attraverso il browser. L’informativa descrive questo comportamento.
+- Informativa IT/EN in scripts/privacy-content.mjs. Titolare confermato: Andrea Borzì, privato. Se cambiano attività, titolare, fornitori, analytics, form o modalità di conservazione dei contatti, aggiornare l’informativa e verificare gli obblighi applicabili. Le modifiche tecniche non sono una certificazione legale universale né verificano licenze/liberatorie delle opere.

@@ -24,7 +24,7 @@ function decode(s = '') {
 }
 
 const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-const res = await fetch(feedUrl, { headers: { 'User-Agent': 'portfolio-sync' } });
+const res = await fetch(feedUrl, { headers: { 'User-Agent': 'portfolio-sync' }, signal: AbortSignal.timeout(30000) });
 if (!res.ok) {
   console.error('✗ Feed non raggiungibile:', res.status, feedUrl);
   process.exit(1);
@@ -39,11 +39,17 @@ const fresh = entries.map(e => {
   const published = (e.match(/<published>(.*?)<\/published>/) || [])[1] || '';
   return id ? { id, title, published } : null;
 }).filter(Boolean);
+if (!fresh.length || fresh.some(v => !/^[-_A-Za-z0-9]{11}$/.test(v.id))) {
+  throw new Error('Feed vuoto o non valido: archivio precedente conservato.');
+}
 
 // carica l'archivio esistente
 let existing = [];
 if (existsSync(OUT)) {
-  try { existing = JSON.parse(await readFile(OUT, 'utf8')); } catch { existing = []; }
+  existing = JSON.parse(await readFile(OUT, 'utf8'));
+  if (!Array.isArray(existing) || existing.some(v => !v || !/^[-_A-Za-z0-9]{11}$/.test(v.id))) {
+    throw new Error('Archivio non valido: sincronizzazione interrotta per conservare lo storico.');
+  }
 }
 
 // merge + dedupe per id (i dati freschi arricchiscono quelli vecchi)

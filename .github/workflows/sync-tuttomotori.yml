@@ -1,66 +1,68 @@
-name: Sync Tutto Motori
+name: Sync portfolio and publish
 
-# Aggiorna data/tuttomotori.json leggendo il feed RSS pubblico del canale.
-# - Parte ogni giorno alle 06:00 UTC (i nuovi video compaiono entro ~1 giorno).
-# - Si può lanciare anche a mano dalla tab "Actions" (workflow_dispatch).
-# - Parte anche a ogni push su main: così un aggiornamento del sito
-#   riattiva automaticamente la schedulazione se era stata sospesa.
-#
-# PERCHÉ SI FERMAVA: GitHub disattiva i workflow schedulati dopo 60 giorni
-# senza attività nel repository. Lo step "Keepalive" qui sotto chiama l'API
-# di GitHub a ogni esecuzione e azzera quel timer, quindi la schedulazione
-# non viene più sospesa. Se il workflow risulta già disattivato, va
-# riattivato UNA volta a mano: tab Actions -> "Sync Tutto Motori" ->
-# "Enable workflow" (o basta questo push).
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '17 6 * * *'
   workflow_dispatch:
   push:
     branches: [main]
 
-# contents: write  -> per committare il JSON aggiornato
-# actions: write   -> per il keepalive (reset del timer dei 60 giorni)
 permissions:
   contents: write
-  actions: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: sync-tuttomotori
+  group: portfolio-pages
   cancel-in-progress: false
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Sync feed -> data/tuttomotori.json
-        run: node scripts/sync-tuttomotori.mjs
-
-      - name: Commit changes (solo se ci sono novità)
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ -n "$(git status --porcelain data/tuttomotori.json)" ]]; then
-            git add data/tuttomotori.json
-            git commit -m "chore: sync Tutto Motori videos"
-            git push
-            echo "Aggiornato data/tuttomotori.json"
-          else
-            echo "Nessuna novità: niente da committare."
-          fi
-
-      - name: Keepalive (evita la sospensione dopo 60 giorni)
+          node-version: 22
+      - name: Verify statistics logic
+        run: node --test scripts/sync-views.test.mjs
+      - name: Update video archive
+        id: feed
+        continue-on-error: true
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YT_CHANNEL_ID: ${{ vars.YT_CHANNEL_ID }}
+        run: node scripts/sync-tuttomotori.mjs
+      - name: Update YouTube views
+        id: views
+        continue-on-error: true
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: node scripts/sync-views.mjs
+      - name: Build static portfolio
+        run: node scripts/build.mjs
+      - name: Save updated data
         run: |
-          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/sync-tuttomotori.yml/enable" \
-            && echo "Keepalive OK: timer dei 60 giorni azzerato." \
-            || echo "Keepalive fallito (non blocca la sync)."
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tuttomotori.json data/youtube-stats.json index.html projects sitemap.xml
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update portfolio data and pages"
+            git push
+          fi
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Report incomplete synchronization
+        if: steps.feed.outcome == 'failure' || steps.views.outcome == 'failure'
+        run: |
+          echo "::error::Website published with last valid data. Inspect failed synchronization steps."
+          exit 1

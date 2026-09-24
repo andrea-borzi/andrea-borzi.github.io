@@ -48,7 +48,7 @@ function renderMedia(){
   if(mediaType==='photo'){
     const img=new Image();img.alt=`${activeProject.title} — ${english?'photograph':'fotografia'} ${activeIndex+1}`;img.src=relative(item.id);img.addEventListener('error',()=>{if(media.contains(img))media.textContent='Immagine non disponibile. Puoi continuare con la successiva.';},{once:true});media.append(img);
     if(items[activeIndex+1]){const next=new Image();next.src=relative(items[activeIndex+1].id);}
-  } else if(!mediaConsent) {
+  } else if(mediaType==='instagram'&&!mediaConsent) {
     const provider=mediaType==='instagram'?'Instagram (Meta)':'YouTube (Google)';
     const panel=document.createElement('div');panel.className='consent-panel';
     const heading=document.createElement('h3');heading.textContent=english?'Play external content':'Riproduci un contenuto esterno';

@@ -5,7 +5,7 @@
       "disc": "motion",
       "size": "lg",
       "yt": 1,
-      "thumb": "img/youtube/nVuFhhDlVjc.jpg",
+      "thumb": "img/copertine/zodiac.png",
       "meta": "Opening Sequence / 3D",
       "title": "Zodiac",
       "act": "video",
@@ -15,8 +15,8 @@
       "kind": "Progetto personale",
       "description": "Una sequenza di apertura che esplora il rapporto tra tipografia, atmosfera e immagini tridimensionali.",
       "role": "Motion design e 3D",
-      "thumbWidth": 1280,
-      "thumbHeight": 720
+      "thumbWidth": 3839,
+      "thumbHeight": 2159
     },
     {
       "disc": "motion",

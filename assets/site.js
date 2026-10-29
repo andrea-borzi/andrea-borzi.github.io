@@ -123,22 +123,25 @@ if(preview&&workIndex&&matchMedia('(hover: hover) and (pointer: fine)').matches)
   workIndex.addEventListener('pointerleave',()=>preview.classList.remove('is-on'));
 }
 
-// Apertura: i fotogrammi dei lavori si alternano a taglio netto, come in una timeline.
+// Apertura: i fotogrammi dei lavori si alternano a taglio netto. Sotto, la timeline:
+// ogni clip è lunga quanto resta a schermo, la testina rossa scorre e un clic salta al fotogramma.
 const cut=document.querySelector('#cut');
 if(cut){
-  const frames=[...cut.querySelectorAll('img')],title=document.querySelector('#cut-title'),time=document.querySelector('#cut-time'),pause=document.querySelector('#cut-pause');
-  const still=matchMedia('(prefers-reduced-motion: reduce)');
-  let current=0,timer,start=performance.now(),running=!still.matches;
+  const frames=[...cut.querySelectorAll('img')],title=document.querySelector('#cut-title'),time=document.querySelector('#cut-time'),pause=document.querySelector('#cut-pause'),timeline=document.querySelector('#timeline');
+  const durations=frames.map(f=>Number(f.dataset.d)||1000),total=durations.reduce((a,b)=>a+b,0),starts=durations.map((_,i)=>durations.slice(0,i).reduce((a,b)=>a+b,0));
+  timeline.innerHTML=frames.map((f,i)=>`<button type="button" class="clip" style="flex-grow:${durations[i]}" aria-label="${e(f.dataset.title)}"><img src="${e(f.getAttribute('src'))}" alt=""></button>`).join('')+'<span class="playhead" aria-hidden="true"></span>';
+  const clips=[...timeline.querySelectorAll('.clip')],head=timeline.querySelector('.playhead');
+  let current=-1,elapsed=0,last=performance.now(),running=!matchMedia('(prefers-reduced-motion: reduce)').matches;
   const pad=n=>String(n).padStart(2,'0');
-  const show=i=>{frames[current].classList.remove('is-on');current=i;frames[i].classList.add('is-on');frames[i].loading='eager';title.textContent=frames[i].dataset.title;};
-  const tick=()=>{if(!running)return;const f=Math.floor((performance.now()-start)/40);time.textContent=`00:${pad(Math.floor(f/1500)%60)}:${pad(Math.floor(f/25)%60)}:${pad(f%25)}`;requestAnimationFrame(tick);};
-  const next=()=>{show((current+1)%frames.length);timer=setTimeout(next,[1400,700,900,1100,600,1000][current%6]);};
-  const play=()=>{running=true;pause.setAttribute('aria-pressed','false');pause.textContent='Ferma le immagini';timer=setTimeout(next,1200);requestAnimationFrame(tick);};
-  const stop=()=>{running=false;clearTimeout(timer);pause.setAttribute('aria-pressed','true');pause.textContent='Riprendi le immagini';};
-  pause.addEventListener('click',()=>running?stop():play());
-  frames.slice(1).forEach(img=>{img.loading='eager';});
-  if(running)play();else stop();
-  document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){clearTimeout(timer);}else if(!document.hidden&&running){clearTimeout(timer);timer=setTimeout(next,900);}});
+  const show=i=>{if(i===current)return;frames[current]?.classList.remove('is-on');clips[current]?.removeAttribute('aria-current');current=i;frames[i].classList.add('is-on');clips[i].setAttribute('aria-current','true');title.textContent=frames[i].dataset.title;title.href=projectURL(frames[i].dataset.slug);title.dataset.open=frames[i].dataset.slug;};
+  const draw=()=>{let i=starts.findLastIndex(t=>t<=elapsed);show(i);head.style.transform=`translateX(${elapsed/total*timeline.clientWidth}px)`;const f=Math.floor(elapsed/40);time.textContent=`00:00:${pad(Math.floor(f/25))}:${pad(f%25)}`;};
+  const loop=now=>{if(running&&!document.hidden){elapsed=(elapsed+Math.min(Math.max(now-last,0),100))%total;draw();}last=now;requestAnimationFrame(loop);};
+  const setRunning=on=>{running=on;pause.setAttribute('aria-pressed',String(!on));pause.textContent=on?'Ferma le immagini':'Riprendi le immagini';};
+  pause.addEventListener('click',()=>setRunning(!running));
+  clips.forEach((clip,i)=>clip.addEventListener('click',()=>{elapsed=starts[i];draw();track('hero_clip',{index:i});}));
+  frames.forEach(img=>{img.loading='eager';});
+  setRunning(running);draw();requestAnimationFrame(loop);
+  addEventListener('resize',draw);
 }
 
 document.addEventListener('click',event=>{

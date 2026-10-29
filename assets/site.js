@@ -1,5 +1,5 @@
 import {translateDOM} from './i18n.mjs';
-import {cardHTML, escapeHTML as e} from './catalog.mjs';
+import {escapeHTML as e} from './catalog.mjs';
 
 document.documentElement.classList.add('js');
 const root = new URL('../', import.meta.url);
@@ -95,22 +95,51 @@ async function openProject(project,start=0){
 function step(n){activeIndex=(activeIndex+n+items.length)%items.length;renderMedia();}
 dialog?.addEventListener('keydown',event=>{if(items.length>1&&!['SELECT','INPUT','TEXTAREA'].includes(event.target.tagName)){if(event.key==='ArrowLeft'){event.preventDefault();step(-1);}if(event.key==='ArrowRight'){event.preventDefault();step(1);}}});
 
-function renderArchive(filter='all'){
-  const list=data.projects.filter(p=>filter==='all'||p.disc===filter);
-  document.querySelector('#archive-grid').innerHTML=list.map(p=>cardHTML(p,english?'../':'')).join('');
-  document.querySelector('#archive-count').textContent=`${list.length} progetti`;
-  if(english)document.querySelectorAll('#archive-grid a[href]').forEach(a=>a.href=a.href.replace('/projects/','/en/projects/'));
-  document.querySelectorAll('#archive-grid img').forEach(imageFallback);
+// Indice dei lavori: filtri, prime dodici righe e anteprima che segue il puntatore.
+const workIndex=document.querySelector('#work-index');
+const workToggle=document.querySelector('#work-toggle');
+const FIRST=12;
+let workFilter='all',workOpen=false;
+function renderWork(){
+  if(!workIndex)return;
+  const rows=[...workIndex.children],matching=rows.filter(row=>workFilter==='all'||row.dataset.disc===workFilter);
+  const limit=workFilter==='all'&&!workOpen?FIRST:Infinity;
+  rows.forEach(row=>{row.hidden=!matching.includes(row)||matching.indexOf(row)>=limit;});
+  document.querySelector('#work-count').textContent=`${matching.length} ${matching.length===1?'lavoro':'lavori'}`;
+  if(workToggle){workToggle.hidden=matching.length<=limit&&!workOpen||workFilter!=='all';workToggle.setAttribute('aria-expanded',String(workOpen));workToggle.textContent=workOpen?'Mostra meno lavori':`Mostra tutti i ${matching.length} lavori`;}
 }
-document.querySelector('#archive-toggle')?.addEventListener('click',event=>{
-  const button=event.currentTarget,archive=document.querySelector('#archive'),open=button.getAttribute('aria-expanded')!=='true';
-  button.setAttribute('aria-expanded',String(open));archive.hidden=!open;button.textContent=open?'Chiudi l’archivio':'Apri l’archivio';
-  if(open&&data){renderArchive(document.querySelector('[data-filter][aria-pressed="true"]')?.dataset.filter);track('archive_open');}
-});
+workToggle?.addEventListener('click',()=>{workOpen=!workOpen;renderWork();if(!workOpen)document.querySelector('#lavori').scrollIntoView();track('archive_open');});
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-  if(data)renderArchive(button.dataset.filter);
+  workFilter=button.dataset.filter;renderWork();
 }));
+renderWork();
+const preview=document.querySelector('#work-preview');
+if(preview&&workIndex&&matchMedia('(hover: hover) and (pointer: fine)').matches){
+  const img=preview.querySelector('img');let x=0,y=0,px=0,py=0,frame;
+  const move=()=>{px+=(x-px)*.18;py+=(y-py)*.18;preview.style.transform=`translate3d(${px}px,${py}px,0)`;frame=Math.abs(x-px)+Math.abs(y-py)>.5?requestAnimationFrame(move):null;};
+  workIndex.addEventListener('pointermove',event=>{x=event.clientX+24;y=event.clientY-preview.offsetHeight/2;if(!preview.classList.contains('is-on')){px=x;py=y;}frame??=requestAnimationFrame(move);});
+  workIndex.addEventListener('pointerover',event=>{const link=event.target.closest('a[data-thumb]');if(!link)return;if(!img.src.endsWith(link.dataset.thumb))img.src=link.dataset.thumb;preview.classList.add('is-on');});
+  workIndex.addEventListener('pointerleave',()=>preview.classList.remove('is-on'));
+}
+
+// Apertura: i fotogrammi dei lavori si alternano a taglio netto, come in una timeline.
+const cut=document.querySelector('#cut');
+if(cut){
+  const frames=[...cut.querySelectorAll('img')],title=document.querySelector('#cut-title'),time=document.querySelector('#cut-time'),pause=document.querySelector('#cut-pause');
+  const still=matchMedia('(prefers-reduced-motion: reduce)');
+  let current=0,timer,start=performance.now(),running=!still.matches;
+  const pad=n=>String(n).padStart(2,'0');
+  const show=i=>{frames[current].classList.remove('is-on');current=i;frames[i].classList.add('is-on');frames[i].loading='eager';title.textContent=frames[i].dataset.title;};
+  const tick=()=>{if(!running)return;const f=Math.floor((performance.now()-start)/40);time.textContent=`00:${pad(Math.floor(f/1500)%60)}:${pad(Math.floor(f/25)%60)}:${pad(f%25)}`;requestAnimationFrame(tick);};
+  const next=()=>{show((current+1)%frames.length);timer=setTimeout(next,[1400,700,900,1100,600,1000][current%6]);};
+  const play=()=>{running=true;pause.setAttribute('aria-pressed','false');pause.textContent='Ferma le immagini';timer=setTimeout(next,1200);requestAnimationFrame(tick);};
+  const stop=()=>{running=false;clearTimeout(timer);pause.setAttribute('aria-pressed','true');pause.textContent='Riprendi le immagini';};
+  pause.addEventListener('click',()=>running?stop():play());
+  frames.slice(1).forEach(img=>{img.loading='eager';});
+  if(running)play();else stop();
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){clearTimeout(timer);}else if(!document.hidden&&running){clearTimeout(timer);timer=setTimeout(next,900);}});
+}
 
 document.addEventListener('click',event=>{
   const trigger=event.target.closest('[data-open]');
@@ -131,13 +160,12 @@ async function loadViews(){
   }catch{/* Un dato non disponibile non viene presentato come zero. */}
 }
 // Entrate: ogni elemento sale una volta sola quando entra nello schermo.
-const revealTargets=document.querySelectorAll('.section-head, .channel-row, .service, .process, .about-picture, .about-copy, .contact-intro, .brief, .project-cta');
+const revealTargets=document.querySelectorAll('.section-head, .stats, .channel-row, .service, .process, .about-picture, .about-copy, .contact-intro, .brief, .project-cta');
 revealTargets.forEach(el=>el.classList.add('reveal'));
 const revealer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-in');revealer.unobserve(entry.target);}}),{rootMargin:'0px 0px -8% 0px'});
 const watchReveal=()=>document.querySelectorAll('.reveal:not(.is-in)').forEach(el=>revealer.observe(el));
 watchReveal();
 new MutationObserver(watchReveal).observe(document.body,{childList:true,subtree:true});
-document.querySelectorAll('.project-grid').forEach(grid=>[...grid.children].forEach((card,i)=>card.style.setProperty('--delay',`${(i%2)*80}ms`)));
 
 // Il brief diventa un’email già compilata, aperta nel programma di posta del visitatore.
 document.querySelector('#brief')?.addEventListener('submit',event=>{
@@ -160,8 +188,6 @@ if(english)document.querySelectorAll('time[datetime]').forEach(time=>{const date
 const results=await Promise.allSettled([json('data/catalog.json')]);
 if(results[0].status==='fulfilled'){
   data=results[0].value;
-  const count=document.querySelector('#project-count');if(count)count.textContent=data.projects.length;
-  const featured=document.querySelector('#featured');if(featured){featured.innerHTML=data.projects.filter(p=>p.featured).map(p=>cardHTML(p,english?'../':'')).join('');featured.querySelectorAll('img').forEach(imageFallback);if(english)featured.querySelectorAll('a[href]').forEach(a=>a.href=a.href.replace('/projects/','/en/projects/'));}
 }else{document.querySelector('.load-message')?.replaceChildren('I progetti sono momentaneamente non disponibili. Puoi visitarli sul canale YouTube.');}
 const videoCount=document.querySelector('#video-count');
 if(videoCount&&data)videoCount.textContent=data.projects.filter(p=>p.act==='channel').reduce((sum,p)=>sum+p.videoCount,0);

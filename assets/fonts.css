@@ -1,8 +1,14 @@
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./fonts/instrument-serif.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
   font-style: normal;
   font-weight: 100 900;
-  font-stretch: 62% 125%;
   font-display: swap;
-  src: url(./fonts/archivo.woff2) format('woff2');
+  src: url(./fonts/geist.woff2) format('woff2');
 }

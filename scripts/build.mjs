@@ -1,5 +1,5 @@
 import {readFile,writeFile,mkdir,cp,readdir,rm} from 'node:fs/promises';
-import {cardHTML,escapeHTML as e,disciplines} from '../assets/catalog.mjs';
+import {rowHTML,escapeHTML as e,disciplines} from '../assets/catalog.mjs';
 import {loadCatalog,thumbFor} from './catalog-data.mjs';
 const {archives,...data}=await loadCatalog();
 // Catalogo unico letto dal browser: progetti a mano, canali e video da data/videos.txt.
@@ -9,8 +9,9 @@ const channelVideoTotal=channels.reduce((sum,p)=>sum+p.videoCount,0);
 const dateLabel=value=>{const date=new Date(value);return Number.isFinite(date.getTime())?new Intl.DateTimeFormat('it-IT',{day:'numeric',month:'short',year:'numeric'}).format(date):'';};
 const channelURL=p=>p.handle?`https://www.youtube.com/${p.handle}`:`https://www.youtube.com/channel/${p.channelId}`;
 let index=(await readFile('index.html','utf8')).replace(/\r\n/g,'\n');
-const cards=data.projects.filter(p=>p.featured).map(p=>cardHTML(p)).join('\n');
-index=index.replace(/<div id="featured" class="project-grid">[\s\S]*?<\/div><noscript>/,`<div id="featured" class="project-grid">${cards}</div><noscript>`);
+// Indice dei lavori: prima i sei in evidenza, poi il resto del catalogo (i canali hanno la loro sezione).
+const works=[...data.projects.filter(p=>p.featured),...data.projects.filter(p=>!p.featured&&p.act!=='channel')];
+index=index.replace(/<ol id="work-index" class="work-index">[\s\S]*?<\/ol>/,`<ol id="work-index" class="work-index">${works.map(p=>rowHTML(p)).join('')}</ol>`);
 const channelRows=(await Promise.all(channels.map(async p=>{
   const latest=(archives[p.slug]||[]).slice(0,4);
   const thumbs=await Promise.all(latest.map(async(v,i)=>{const thumb=await thumbFor(v.id);return `<li><a href="https://www.youtube.com/watch?v=${e(v.id)}" data-open="${e(p.slug)}" data-index="${i}" target="_blank" rel="noopener"><span class="video-thumb">${thumb?`<img src="${thumb}" alt="" loading="lazy" width="320" height="180">`:''}</span><span class="video-title">${e(v.title||p.title)}</span></a></li>`;}));
@@ -19,7 +20,7 @@ const channelRows=(await Promise.all(channels.map(async p=>{
 index=index.replace(/<div id="channel-list">[\s\S]*?<\/div>\n<\/div><\/section>/,`<div id="channel-list">${channelRows}</div>\n</div></section>`);
 const stats=await readFile('data/youtube-stats.json','utf8').then(JSON.parse).catch(()=>null);
 if(stats?.complete===true&&/^\d+$/.test(String(stats.totalViews)))index=index.replace(/<dd id="view-count">[^<]*<\/dd>/,`<dd id="view-count">${new Intl.NumberFormat('it-IT').format(BigInt(stats.totalViews))}</dd>`);
-index=index.replace(/<dd id="video-count">[^<]*<\/dd>/,`<dd id="video-count">${channelVideoTotal}</dd>`).replace(/<dd id="channel-count">[^<]*<\/dd>/,`<dd id="channel-count">${channels.length}</dd>`).replace(/<span id="project-count">[^<]*<\/span>/,`<span id="project-count">${data.projects.length}</span>`);
+index=index.replace(/<dd id="video-count">[^<]*<\/dd>/,`<dd id="video-count">${channelVideoTotal}</dd>`).replace(/<dd id="channel-count">[^<]*<\/dd>/,`<dd id="channel-count">${channels.length}</dd>`).replace(/<span id="project-count">[^<]*<\/span>/,`<span id="project-count">${works.length}</span>`);
 await writeFile('index.html',index);
 await mkdir('projects',{recursive:true});
 const dialog=index.match(/<dialog[\s\S]*?<\/dialog>/)[0];

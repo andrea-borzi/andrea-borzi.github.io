@@ -1,6 +1,7 @@
 import {translateDOM} from './i18n.mjs';
 import {cardHTML, escapeHTML as e} from './catalog.mjs';
 
+document.documentElement.classList.add('js');
 const root = new URL('../', import.meta.url);
 const relative = path => new URL(path, root).href;
 const dialog = document.querySelector('#project-dialog');
@@ -103,7 +104,7 @@ function renderArchive(filter='all'){
 }
 document.querySelector('#archive-toggle')?.addEventListener('click',event=>{
   const button=event.currentTarget,archive=document.querySelector('#archive'),open=button.getAttribute('aria-expanded')!=='true';
-  button.setAttribute('aria-expanded',String(open));archive.hidden=!open;button.innerHTML=open?'Chiudi archivio <span>−</span>':'Esplora tutti i lavori <span>+</span>';
+  button.setAttribute('aria-expanded',String(open));archive.hidden=!open;button.textContent=open?'Chiudi l’archivio':'Apri l’archivio';
   if(open&&data){renderArchive(document.querySelector('[data-filter][aria-pressed="true"]')?.dataset.filter);track('archive_open');}
 });
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
@@ -116,7 +117,7 @@ document.addEventListener('click',event=>{
   if(trigger&&data&&dialog){if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;const p=data.projects.find(p=>p.slug===trigger.dataset.open);if(p){event.preventDefault();openProject(p,Number(trigger.dataset.index)||0);}}
   const contact=event.target.closest('a[href^="mailto:"],a[href*="api.whatsapp.com"]');if(contact)track('contact_click',{channel:contact.href.startsWith('mailto:')?'email':'whatsapp'});
 });
-document.querySelector('#reel-button')?.addEventListener('click',()=>{openProject({title:'Showreel',meta:'Andrea Borzì · Visual Artist',arg:data?.showreel||'JqXCmlVath0',act:'video'});track('reel_open');});
+document.querySelector('#reel-button')?.addEventListener('click',()=>{openProject({title:'Showreel',meta:'Andrea Borzì · Video editor e motion designer',arg:data?.showreel||'JqXCmlVath0',act:'video'});track('reel_open');});
 
 async function loadViews(){
   try{
@@ -129,6 +130,25 @@ async function loadViews(){
     el.title=english?'Total YouTube views, not unique website visitors.':'Somma delle visualizzazioni complessive su YouTube, non visitatori unici del sito.';
   }catch{/* Un dato non disponibile non viene presentato come zero. */}
 }
+// Entrate: ogni elemento sale una volta sola quando entra nello schermo.
+const revealTargets=document.querySelectorAll('.section-head, .channel-row, .service, .process, .about-picture, .about-copy, .contact-intro, .brief, .project-cta');
+revealTargets.forEach(el=>el.classList.add('reveal'));
+const revealer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-in');revealer.unobserve(entry.target);}}),{rootMargin:'0px 0px -8% 0px'});
+const watchReveal=()=>document.querySelectorAll('.reveal:not(.is-in)').forEach(el=>revealer.observe(el));
+watchReveal();
+new MutationObserver(watchReveal).observe(document.body,{childList:true,subtree:true});
+document.querySelectorAll('.project-grid').forEach(grid=>[...grid.children].forEach((card,i)=>card.style.setProperty('--delay',`${(i%2)*80}ms`)));
+
+// Il brief diventa un’email già compilata, aperta nel programma di posta del visitatore.
+document.querySelector('#brief')?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const form=new FormData(event.currentTarget),field=name=>String(form.get(name)||'').trim();
+  const lines=english?[`Project: ${field('tipo')}`,`How many videos / how often: ${field('quantita')||'-'}`,`Deadline: ${field('scadenza')||'-'}`,'',field('messaggio'),'',field('nome')]:[`Progetto: ${field('tipo')}`,`Quanti video / cadenza: ${field('quantita')||'-'}`,`Scadenza: ${field('scadenza')||'-'}`,'',field('messaggio'),'',field('nome')];
+  const subject=`${english?'Project enquiry':'Richiesta di preventivo'}: ${field('tipo')}`;
+  track('contact_click',{channel:'brief'});
+  location.href=`mailto:borzi.andrea98@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n').trim())}`;
+});
+
 const search=document.querySelector('#video-search');
 search?.addEventListener('input',()=>{
   const query=search.value.trim().toLowerCase();let shown=0;
@@ -145,4 +165,6 @@ if(results[0].status==='fulfilled'){
 }else{document.querySelector('.load-message')?.replaceChildren('I progetti sono momentaneamente non disponibili. Puoi visitarli sul canale YouTube.');}
 const videoCount=document.querySelector('#video-count');
 if(videoCount&&data)videoCount.textContent=data.projects.filter(p=>p.act==='channel').reduce((sum,p)=>sum+p.videoCount,0);
+const channelCount=document.querySelector('#channel-count');
+if(channelCount&&data)channelCount.textContent=data.projects.filter(p=>p.act==='channel').length;
 await loadViews();

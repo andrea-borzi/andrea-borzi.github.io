@@ -47,7 +47,7 @@ console.log(`Generate ${data.projects.length} pagine progetto e ${data.projects.
 await import('./localize.mjs');
 await rm('_site',{recursive:true,force:true});
 await mkdir('_site',{recursive:true});
-for(const item of ['index.html','en','privacy.html','assets','data','img','projects','favicon.png','favicon.ico','favicon.svg','apple-touch-icon.png','robots.txt','sitemap.xml','social-preview.png']){
+for(const item of ['index.html','en','privacy.html','assets','data','img','projects','favicon.png','favicon.ico','favicon.svg','apple-touch-icon.png','robots.txt','sitemap.xml','social-preview.png','og-image.jpg','og-image-en.jpg']){
   await cp(item,`_site/${item}`,{recursive:true});
 }
 await writeFile('_site/.nojekyll','');

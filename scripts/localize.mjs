@@ -27,6 +27,7 @@ for(const path of ['index.html',...data.projects.map(p=>`projects/${p.slug}.html
   if(/^(assets\/|img\/|favicon\.(png|svg|ico)|apple-touch-icon\.png|social-preview\.png)/.test(v))return a+'../'+v+b;
   return all;
  });
+ if(path==='index.html')en=en.replace(/og-image\.jpg/g,'og-image-en.jpg');
  en=en.replace(/(rel="canonical" href="|property="og:url" content=")https:\/\/andrea-borzi.github.io\//g,'$1'+base+'en/');
  en=en.replaceAll('Un%20progetto%20con%20Andrea','A%20project%20with%20Andrea');
  en=enhance(en,path,true);await mkdir('en/projects',{recursive:true});await writeFile('en/'+path,en);

@@ -55,7 +55,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,te
 .play-icon{width:48px;height:48px;border-radius:50%;background:var(--ink);position:relative;flex:none;transition:transform .3s var(--ease),background .2s}
 .play-icon::after{content:"";position:absolute;left:19px;top:15px;border-left:14px solid var(--bg);border-block:9px solid transparent}
 .reel-link:hover .play-icon{transform:scale(1.1);background:var(--accent)}
-.cut-meta{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr) auto;align-items:center;gap:16px 32px;padding-block:16px 24px;font-size:14px;color:#d8d5cf}
+.cut-meta{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr) auto;align-items:center;gap:16px 32px;padding-block:14px;font-size:14px;color:#d8d5cf;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax)}
 .cut-caption{display:flex;gap:20px;min-width:0}
 #cut-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;transition:text-decoration-color .2s}
 #cut-title:hover{text-decoration-color:currentColor}
@@ -254,7 +254,7 @@ dialog::backdrop{background:#0a0a09f0}
   .nav-link{display:none}
   .nav-cta{padding:9px 14px}
   .hero{min-height:calc(100svh - 64px)}
-  .hero h1{font-size:clamp(2.8rem,12.6vw,5rem)}
+  .hero h1{font-size:clamp(2.6rem,11vw,5rem)}
   .cut img{object-position:50% 50%}
   .cut-caption{flex-direction:column;gap:2px}
   .play-icon{width:40px;height:40px}

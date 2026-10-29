@@ -43,7 +43,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,te
 .cut{position:absolute;inset:0;z-index:-1}
 .cut img{position:absolute;inset:0;opacity:0}
 .cut img.is-on{opacity:1}
-.cut::after{content:"";position:absolute;inset:0;background:rgba(10,10,9,.45)}
+.cut::after{content:"";position:absolute;inset:0;background:rgba(10,10,9,.5)}
 .hero-inner{padding-bottom:clamp(28px,4vw,56px)}
 .hero h1{animation:rise 1s var(--ease) both;font-size:clamp(2.8rem,10.5vw,12rem);line-height:.86;letter-spacing:-.01em;max-width:18ch;text-wrap:balance}
 .lead{font-size:clamp(1.2rem,1.6vw,1.5rem);line-height:1.4;max-width:38ch}

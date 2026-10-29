@@ -1,9 +1,10 @@
-import {readFile, writeFile, rename} from 'node:fs/promises';
+import {writeFile, rename} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
+import {loadCatalog} from './catalog-data.mjs';
 
-export function portfolioVideoIds(portfolio, series){
-  const includeSeries=portfolio.projects.some(p=>p.act==='videogallery'&&p.arg==='tuttomotori');
-  const ids=[portfolio.showreel,...portfolio.projects.filter(p=>p.act==='video').map(p=>p.arg),...(includeSeries?series.map(v=>typeof v==='string'?v:v.id):[])];
+// Showreel, video singoli e tutti i video dei canali, contati una sola volta.
+export function portfolioVideoIds(catalog, archives = {}){
+  const ids=[catalog.showreel,...catalog.projects.filter(p=>p.act==='video').map(p=>p.arg),...Object.values(archives).flat().map(v=>typeof v==='string'?v:v.id)];
   if(ids.some(id=>!/^[-_A-Za-z0-9]{11}$/.test(id)))throw new Error('ID video non valido nel portfolio.');
   return [...new Set(ids)].sort();
 }
@@ -33,8 +34,8 @@ export async function collectStatistics(ids, apiKey, fetcher=fetch){
 async function main(){
   const key=process.env.YOUTUBE_API_KEY;
   if(!key){console.log('::warning::YOUTUBE_API_KEY non configurata: sincronizzazione video attiva, contatore non aggiornato.');return;}
-  const [portfolio,series]=await Promise.all(['data/portfolio.json','data/tuttomotori.json'].map(async path=>JSON.parse(await readFile(path,'utf8'))));
-  const stats=await collectStatistics(portfolioVideoIds(portfolio,series),key);
+  const catalog=await loadCatalog();
+  const stats=await collectStatistics(portfolioVideoIds(catalog,catalog.archives),key);
   const out='data/youtube-stats.json';await writeFile(out+'.tmp',JSON.stringify(stats,null,2)+'\n');await rename(out+'.tmp',out);
   console.log(`Aggiornate le statistiche di ${stats.videoCount} video.`);
 }

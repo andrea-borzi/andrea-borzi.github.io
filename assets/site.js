@@ -5,7 +5,8 @@ const root = new URL('../', import.meta.url);
 const relative = path => new URL(path, root).href;
 const dialog = document.querySelector('#project-dialog');
 const body = document.querySelector('#dialog-body');
-let data, videos=[], lastFocus;
+let data, lastFocus;
+const archives={};
 let items=[], activeIndex=0, mediaType='video', activeProject;
 const english=document.documentElement.lang==='en';
 const locale=english?'en-GB':'it-IT';
@@ -67,7 +68,12 @@ function renderMedia(){
   const external=document.querySelector('#media-external');if(external){external.href=mediaType==='instagram'?`https://www.instagram.com/p/${item.id}/`:`https://www.youtube.com/watch?v=${item.id}`;}
 }
 
-function openProject(project){
+async function channelItems(slug){
+  archives[slug]??=json(`data/channels/${slug}.json`).catch(()=>{delete archives[slug];return [];});
+  return (await archives[slug]).map(v=>({id:v.id,title:v.title}));
+}
+
+async function openProject(project,start=0){
   activeProject=project;activeIndex=0;items=[];
   showDialog(project.title,project.role||project.meta);
   track('project_open',{project:project.slug});
@@ -75,8 +81,10 @@ function openProject(project){
     body.innerHTML=`<p>${e(project.description)}</p><a class="button" href="${e(project.arg)}" target="_blank" rel="noopener">Apri l’esperienza ↗</a><p>Il progetto si apre in una nuova scheda.</p>`;return;
   }
   mediaType=project.act==='shorts'?'instagram':['photo','single'].includes(project.act)?'photo':'video';
-  items=project.act==='videogallery'?videos:project.act==='photo'?(data.photos[project.arg]||[]).map((id,i)=>({id,title:`${project.title} · ${i+1}`})):project.act==='shorts'?(data.instagram[project.arg]||[]).map((id,i)=>({id,title:`Contenuto ${i+1}`})):[{id:project.arg,title:project.title}];
+  items=project.act==='channel'?await channelItems(project.arg):project.act==='photo'?(data.photos[project.arg]||[]).map((id,i)=>({id,title:`${project.title} · ${i+1}`})):project.act==='shorts'?(data.instagram[project.arg]||[]).map((id,i)=>({id,title:`Contenuto ${i+1}`})):[{id:project.arg,title:project.title}];
+  if(activeProject!==project||!dialog.open)return;
   if(!items.length){body.innerHTML='<p>La galleria non è disponibile in questo momento. Riprova più tardi.</p>';return;}
+  activeIndex=Math.min(Math.max(start,0),items.length-1);
   body.innerHTML=`<div class="media ${mediaType==='instagram'?'instagram':mediaType==='photo'?'photo':''}" id="media"></div>${items.length>1?`<div class="gallery-controls"><button id="previous" aria-label="Precedente">←</button><select id="gallery-select" aria-label="Scegli un contenuto">${items.map((item,i)=>`<option value="${i}">${i+1}. ${e(item.title||`Video ${item.id}`)}</option>`).join('')}</select><button id="next" aria-label="Successivo">→</button></div><p id="gallery-status" role="status"></p>`:''}<p>${e(project.description||'')}</p><div class="detail-links">${mediaType!=='photo'?'<a id="media-external" class="external-link" target="_blank" rel="noopener">'+(mediaType==='instagram'?'Apri su Instagram':'Apri su YouTube')+' ↗</a>':''}${project.slug?`<a class="external-link" href="${projectURL(project.slug)}">Scheda del progetto ↗</a>`:''}</div>`;
   document.querySelector('#previous')?.addEventListener('click',()=>step(-1));
   document.querySelector('#next')?.addEventListener('click',()=>step(1));
@@ -105,7 +113,7 @@ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListen
 
 document.addEventListener('click',event=>{
   const trigger=event.target.closest('[data-open]');
-  if(trigger&&data&&dialog){if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;const p=data.projects.find(p=>p.slug===trigger.dataset.open);if(p){event.preventDefault();openProject(p);}}
+  if(trigger&&data&&dialog){if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;const p=data.projects.find(p=>p.slug===trigger.dataset.open);if(p){event.preventDefault();openProject(p,Number(trigger.dataset.index)||0);}}
   const contact=event.target.closest('a[href^="mailto:"],a[href*="api.whatsapp.com"]');if(contact)track('contact_click',{channel:contact.href.startsWith('mailto:')?'email':'whatsapp'});
 });
 document.querySelector('#reel-button')?.addEventListener('click',()=>{openProject({title:'Showreel',meta:'Andrea Borzì · Visual Artist',arg:data?.showreel||'JqXCmlVath0',act:'video'});track('reel_open');});
@@ -121,13 +129,20 @@ async function loadViews(){
     el.title=english?'Total YouTube views, not unique website visitors.':'Somma delle visualizzazioni complessive su YouTube, non visitatori unici del sito.';
   }catch{/* Un dato non disponibile non viene presentato come zero. */}
 }
-const results=await Promise.allSettled([json('data/portfolio.json'),json('data/tuttomotori.json')]);
+const search=document.querySelector('#video-search');
+search?.addEventListener('input',()=>{
+  const query=search.value.trim().toLowerCase();let shown=0;
+  document.querySelectorAll('.video-tile').forEach(tile=>{const match=!query||tile.dataset.title.includes(query);tile.hidden=!match;if(match)shown++;});
+  document.querySelector('#video-search-status').textContent=shown?`${shown} video`:'Nessun video trovato.';
+});
+if(english)document.querySelectorAll('time[datetime]').forEach(time=>{const date=new Date(time.dateTime);if(Number.isFinite(date.getTime()))time.textContent=new Intl.DateTimeFormat(locale,{dateStyle:'medium'}).format(date);});
+
+const results=await Promise.allSettled([json('data/catalog.json')]);
 if(results[0].status==='fulfilled'){
   data=results[0].value;
   const count=document.querySelector('#project-count');if(count)count.textContent=data.projects.length;
   const featured=document.querySelector('#featured');if(featured){featured.innerHTML=data.projects.filter(p=>p.featured).map(p=>cardHTML(p,english?'../':'')).join('');featured.querySelectorAll('img').forEach(imageFallback);if(english)featured.querySelectorAll('a[href]').forEach(a=>a.href=a.href.replace('/projects/','/en/projects/'));}
 }else{document.querySelector('.load-message')?.replaceChildren('I progetti sono momentaneamente non disponibili. Puoi visitarli sul canale YouTube.');}
-if(results[1].status==='fulfilled'&&Array.isArray(results[1].value)){
-  videos=results[1].value;const count=document.querySelector('#video-count');if(count)count.textContent=videos.length;
-}
+const videoCount=document.querySelector('#video-count');
+if(videoCount&&data)videoCount.textContent=data.projects.filter(p=>p.act==='channel').reduce((sum,p)=>sum+p.videoCount,0);
 await loadViews();

@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "tutto-motori",
+    "name": "Tutto Motori",
+    "channelId": "UCi4pZJuT9xxaCiaIhc5Z5aQ",
+    "handle": "",
+    "lang": "it",
+    "since": "",
+    "exclude": [],
+    "featured": true,
+    "disc": "motion",
+    "thumb": "img/youtube/nYB5lpruJm4.jpg",
+    "thumbWidth": 1280,
+    "thumbHeight": 720,
+    "meta": "Automotive · Client",
+    "kind": "Collaborazione",
+    "role": "Montaggio, testi, motion graphics, color e animazioni",
+    "description": "Contenuti editoriali dedicati al mondo automotive. Testi, montaggio e animazione lavorano insieme per dare struttura e ritmo alle informazioni."
+  },
+  {
+    "slug": "mr-beaver",
+    "name": "Mr. Beaver",
+    "channelId": "UC3OaP3ZsVB_mZL_ciKdGH3g",
+    "handle": "@misterbeaver1",
+    "lang": "en",
+    "since": "",
+    "exclude": [],
+    "featured": false,
+    "disc": "motion",
+    "thumb": "",
+    "meta": "Canada · YouTube · EN",
+    "kind": "Collaborazione",
+    "role": "Montaggio di tutti i video",
+    "description": "Un canale in inglese per chi vuole trasferirsi in Canada: costo della vita, casa, lavoro e cultura, raccontati senza filtri."
+  },
+  {
+    "slug": "mr-kangaroo",
+    "name": "Mr. Kangaroo",
+    "channelId": "UCF_N-l75UztoX8JQ_DJAK2A",
+    "handle": "@misterkangaroo1",
+    "lang": "en",
+    "since": "",
+    "exclude": [],
+    "featured": false,
+    "disc": "motion",
+    "thumb": "",
+    "meta": "Australia · YouTube · EN",
+    "kind": "Collaborazione",
+    "role": "Montaggio di tutti i video",
+    "description": "Un canale in inglese per chi vuole trasferirsi in Australia: costo della vita, casa, lavoro e cultura, raccontati senza filtri."
+  }
+]

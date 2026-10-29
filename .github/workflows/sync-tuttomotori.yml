@@ -27,14 +27,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify statistics logic
-        run: node --test scripts/sync-views.test.mjs
-      - name: Update video archive
+      - name: Verify synchronization logic
+        run: node --test scripts/*.test.mjs
+      - name: Update channel archives
         id: feed
         continue-on-error: true
         env:
-          YT_CHANNEL_ID: ${{ vars.YT_CHANNEL_ID }}
-        run: node scripts/sync-tuttomotori.mjs
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: node scripts/sync-channels.mjs
+      - name: Complete single videos
+        id: videos
+        continue-on-error: true
+        run: node scripts/sync-videos.mjs
       - name: Update YouTube views
         id: views
         continue-on-error: true
@@ -49,7 +53,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/tuttomotori.json data/youtube-stats.json index.html projects en privacy.html sitemap.xml
+          git add data img/youtube index.html projects en privacy.html sitemap.xml
           if ! git diff --cached --quiet; then
             git commit -m "chore: update portfolio data and pages"
             git push
@@ -64,7 +68,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
       - name: Report incomplete synchronization
-        if: steps.feed.outcome == 'failure' || steps.views.outcome == 'failure'
+        if: steps.feed.outcome == 'failure' || steps.videos.outcome == 'failure' || steps.views.outcome == 'failure'
         run: |
           echo "::error::Website published with last valid data. Inspect failed synchronization steps."
           exit 1

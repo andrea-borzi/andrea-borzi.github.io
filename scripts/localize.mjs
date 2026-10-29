@@ -1,8 +1,9 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {translateHTML} from '../assets/i18n.mjs';
 import {sections} from './privacy-content.mjs';
+import {loadCatalog} from './catalog-data.mjs';
 const base='https://andrea-borzi.github.io/';
-const data=JSON.parse(await readFile('data/portfolio.json','utf8'));
+const data=await loadCatalog();
 function enhance(html,path,english=false){
  const project=path.startsWith('projects/'),prefix=english?(project?'../../':'../'):(project?'../':'');
  const home=english?(project?'../index.html':'index.html'):(project?'../index.html':'index.html');
@@ -22,8 +23,8 @@ for(const path of ['index.html',...data.projects.map(p=>`projects/${p.slug}.html
  // Resolve local paths from the parallel /en/ directory, keeping project links within English.
  en=en.replace(/((?:href|src)=")([^"#]+)(")/g,(all,a,v,b)=>{
   if(/^(https?:|mailto:|data:)/.test(v))return all;
-  if(v.startsWith('../assets/')||v.startsWith('../img/')||v==='../favicon.png')return a+'../'+v+b;
-  if(/^(assets\/|img\/|favicon.png)/.test(v))return a+'../'+v+b;
+  if(v.startsWith('../assets/')||v.startsWith('../img/')||['../favicon.png','../social-preview.png'].includes(v))return a+'../'+v+b;
+  if(/^(assets\/|img\/|favicon\.png|social-preview\.png)/.test(v))return a+'../'+v+b;
   return all;
  });
  en=en.replace(/(rel="canonical" href="|property="og:url" content=")https:\/\/andrea-borzi.github.io\//g,'$1'+base+'en/');

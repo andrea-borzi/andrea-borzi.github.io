@@ -1,0 +1,8 @@
+# Video singoli del portfolio.
+# Una riga per video: link YouTube | categoria | ruolo | titolo
+# Categorie: video, 3d, web, foto. Ruolo e titolo sono facoltativi:
+# senza titolo viene usato quello di YouTube.
+# Le righe che iniziano con # vengono ignorate.
+#
+# Esempio:
+# https://youtu.be/nVuFhhDlVjc | video | Montaggio e color

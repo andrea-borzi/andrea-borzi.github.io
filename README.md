@@ -6,7 +6,7 @@ Portfolio statico, senza dipendenze di build. Node.js 22 consigliato.
 
 ```sh
 node scripts/build.mjs
-node --test scripts/sync-views.test.mjs
+node --test scripts/*.test.mjs
 node scripts/check.mjs
 node scripts/serve.mjs
 ```
@@ -18,8 +18,10 @@ Aprire http://127.0.0.1:4173. Il server resta in esecuzione fino alla chiusura d
 - `index.html`: testi e struttura della homepage. La selezione dei progetti viene prerenderizzata durante la build.
 - `assets/site.css`: identità visiva e layout responsive.
 - `assets/site.js`: dialoghi accessibili, filtri, gallerie, statistiche.
-- `data/portfolio.json`: fonte comune dei progetti, ID showreel, gallerie fotografiche e post Instagram. `featured: true` seleziona i progetti iniziali. `role` contiene solo ruoli confermati.
-- `data/tuttomotori.json`: archivio YouTube aggiornato dalla sincronizzazione RSS. Dopo un’interruzione lunga verificare eventuali video mancanti.
+- `data/portfolio.json`: progetti curati a mano, ID showreel, gallerie fotografiche e post Instagram. `featured: true` seleziona i progetti iniziali. `role` contiene solo ruoli confermati.
+- `data/channels.json`: i canali YouTube che monto. Per aggiungerne uno basta un nuovo blocco con `slug`, `name` e `channelId` (inizia con `UC`). `since` (es. `2026-01`) importa solo i video da quella data, `exclude` elenca gli ID da nascondere. Ogni canale ha una pagina in `projects/<slug>.html` con tutti i video e la ricerca.
+- `data/videos.txt`: video singoli. Una riga per video: `link | categoria | ruolo | titolo` (categorie: video, 3d, web, foto; ruolo e titolo facoltativi). Si può modificare anche dal sito di GitHub: al salvataggio il workflow legge titolo e copertina da YouTube e pubblica la scheda. Cancellare la riga toglie il video.
+- Generati, da non modificare a mano: `data/channels/<slug>.json` (archivio di ogni canale), `data/videos.json` (titoli letti da YouTube), `data/catalog.json` (catalogo unico letto dal sito), le miniature in `img/youtube/`.
 - `data/youtube-stats.json`: ultimo snapshot completo delle visualizzazioni, generato dall’API. Non compilare valori inventati a mano.
 - `projects/*.html` e `sitemap.xml`: generati da `scripts/build.mjs`; modificare il catalogo e rigenerare.
 
@@ -36,13 +38,13 @@ La directory `_site` contiene esclusivamente il sito da pubblicare. Audit, scrip
 
 Documentazione: [YouTube videos.list](https://developers.google.com/youtube/v3/docs/videos/list), [configurazione API](https://developers.google.com/youtube/v3/getting-started), [GitHub Pages con Actions](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-Il contatore include showreel, tutti i progetti con `act: video` e la serie Tutto Motori, deduplicati per ID. Non include Instagram. Somma le visualizzazioni complessive dei video su YouTube, non le visite al portfolio né utenti unici.
+Il contatore include showreel, tutti i progetti con `act: video` (anche quelli di `videos.txt`) e tutti i video dei canali in `channels.json`, deduplicati per ID. Non include Instagram. Somma le visualizzazioni complessive dei video su YouTube, non le visite al portfolio né utenti unici.
 
-Senza chiave la sync RSS resta attiva e le views mostrano un trattino. Una risposta API parziale o un errore non sovrascrive lo snapshot precedente. I video mancanti vengono elencati nel log: verificare disponibilità e catalogo. Non rimuovere video soltanto per far passare il test senza verificarne lo stato.
+Con la chiave la sync dei canali legge l’intera playlist dei caricamenti (storico completo, video rimossi esclusi); senza chiave usa il feed RSS, che copre solo le ultime ~15 pubblicazioni, e le views mostrano un trattino. Una risposta API parziale o un errore non sovrascrive lo snapshot precedente. I video mancanti vengono elencati nel log: verificare disponibilità e catalogo. Non rimuovere video soltanto per far passare il test senza verificarne lo stato.
 
 Il workflow prova ad aggiornare feed e statistiche indipendentemente, pubblica gli ultimi dati validi e termina con errore segnalato se una sync è fallita. La pianificazione è giornaliera alle 06:17 UTC e GitHub può ritardare l’avvio. I workflow schedulati dei repository pubblici possono essere disattivati dopo inattività prolungata: controllare lo stato in Actions e riattivare se necessario.
 
-L’importazione da Tutto Motori continua a includere ogni nuovo video del canale, come nel sistema precedente. Se la collaborazione non copre tutte le nuove pubblicazioni, va introdotto un criterio di selezione.
+Ogni canale importa tutti i video pubblicati: Andrea li monta tutti. Se una collaborazione non copre più ogni pubblicazione, usare `since` o `exclude` in `channels.json`.
 
 ## Misurazione
 

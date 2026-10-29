@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {collectStatistics,portfolioVideoIds} from './sync-views.mjs';
 const id='ABCDEFGHIJK',other='12345678901';
-test('showreel, video e serie sono deduplicati; Instagram escluso',()=>{
-  assert.deepEqual(portfolioVideoIds({showreel:id,projects:[{act:'video',arg:id},{act:'shorts',arg:'instagram'},{act:'videogallery',arg:'tuttomotori'}]},[{id}, {id:other}]),[other,id]);
-  assert.deepEqual(portfolioVideoIds({showreel:id,projects:[]},[{id:other}]),[id]);
+test('showreel, video e canali sono deduplicati; Instagram escluso',()=>{
+  assert.deepEqual(portfolioVideoIds({showreel:id,projects:[{act:'video',arg:id},{act:'shorts',arg:'instagram'},{act:'channel',arg:'a'}]},{a:[{id}, {id:other}],b:[{id:other}]}),[other,id]);
+  assert.deepEqual(portfolioVideoIds({showreel:id,projects:[]}),[id]);
 });
 test('somma intera esatta anche oltre la precisione dei numeri JS',async()=>{
   const out=await collectStatistics([id,other],'test',async()=>({ok:true,json:async()=>({items:[{id,statistics:{viewCount:'9007199254740993'}},{id:other,statistics:{viewCount:'7'}}]})}));

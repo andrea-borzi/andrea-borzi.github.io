@@ -15,8 +15,13 @@ index=index.replace(/<ol id="work-index" class="work-index">[\s\S]*?<\/ol>/,`<ol
 const channelRows=(await Promise.all(channels.map(async p=>{
   const latest=(archives[p.slug]||[]).slice(0,4);
   const thumbs=await Promise.all(latest.map(async(v,i)=>{const thumb=await thumbFor(v.id);return `<li><a href="https://www.youtube.com/watch?v=${e(v.id)}" data-open="${e(p.slug)}" data-index="${i}" target="_blank" rel="noopener"><span class="video-thumb">${thumb?`<img src="${thumb}" alt="" loading="lazy" width="320" height="180">`:''}</span><span class="video-title">${e(v.title||p.title)}</span></a></li>`;}));
-  return `<article class="channel-row reveal"><div class="channel-info"><h3><a href="projects/${e(p.slug)}.html">${e(p.title)}</a></h3><p>${e(p.description)}</p><p class="channel-meta">${p.videoCount?`${p.videoCount} video`:'Archivio in aggiornamento.'} · ${p.lang==='en'?'In inglese':'In italiano'}</p><a class="text-link" href="projects/${e(p.slug)}.html">Tutti i video</a></div>${thumbs.length?`<ul class="channel-thumbs">${thumbs.join('')}</ul>`:'<p class="channel-empty">I video compaiono qui dopo il prossimo aggiornamento.</p>'}</article>`;
-}))).join('');
+  return `<article class="channel-row${latest.length<4?' channel-row--compact':''} reveal"><div class="channel-info"><h3><a href="projects/${e(p.slug)}.html">${e(p.title)}</a></h3><p>${e(p.description)}</p><p class="channel-meta">${p.videoCount?`${p.videoCount} video`:'Archivio in aggiornamento.'} · ${p.lang==='en'?'In inglese':'In italiano'}</p><a class="text-link" href="projects/${e(p.slug)}.html">Tutti i video</a></div>${thumbs.length?`<ul class="channel-thumbs">${thumbs.join('')}</ul>`:'<p class="channel-empty">I video compaiono qui dopo il prossimo aggiornamento.</p>'}</article>`;
+}))).reduce((html,row,i,rows)=>{
+  // I canali con pochi video stanno affiancati, così una riga mezza vuota non pesa quanto Tutto Motori.
+  const compact=r=>r?.includes('channel-row--compact');
+  if(!compact(row))return html+row;
+  return html+(compact(rows[i-1])?'':'<div class="channel-pair">')+row+(compact(rows[i+1])?'':'</div>');
+},'');
 index=index.replace(/<div id="channel-list">[\s\S]*?<\/div>\n<\/div><\/section>/,`<div id="channel-list">${channelRows}</div>\n</div></section>`);
 const stats=await readFile('data/youtube-stats.json','utf8').then(JSON.parse).catch(()=>null);
 if(stats?.complete===true&&/^\d+$/.test(String(stats.totalViews)))index=index.replace(/<dd id="view-count">[^<]*<\/dd>/,`<dd id="view-count">${new Intl.NumberFormat('it-IT').format(BigInt(stats.totalViews))}</dd>`);
@@ -47,7 +52,7 @@ console.log(`Generate ${data.projects.length} pagine progetto e ${data.projects.
 await import('./localize.mjs');
 await rm('_site',{recursive:true,force:true});
 await mkdir('_site',{recursive:true});
-for(const item of ['index.html','en','privacy.html','assets','data','img','projects','favicon.png','favicon.ico','favicon.svg','apple-touch-icon.png','robots.txt','sitemap.xml','social-preview.png','og-image.jpg','og-image-en.jpg']){
+for(const item of ['index.html','404.html','en','privacy.html','assets','data','img','projects','favicon.png','favicon.ico','favicon.svg','apple-touch-icon.png','robots.txt','sitemap.xml','social-preview.png','og-image.jpg','og-image-en.jpg']){
   await cp(item,`_site/${item}`,{recursive:true});
 }
 await writeFile('_site/.nojekyll','');

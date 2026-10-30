@@ -105,14 +105,18 @@ function renderWork(){
   const rows=[...workIndex.children],matching=rows.filter(row=>workFilter==='all'||row.dataset.disc===workFilter);
   const limit=workFilter==='all'&&!workOpen?FIRST:Infinity;
   rows.forEach(row=>{row.hidden=!matching.includes(row)||matching.indexOf(row)>=limit;});
-  document.querySelector('#work-count').textContent=`${matching.length} ${matching.length===1?'lavoro':'lavori'}`;
-  if(workToggle){workToggle.hidden=matching.length<=limit&&!workOpen||workFilter!=='all';workToggle.setAttribute('aria-expanded',String(workOpen));workToggle.textContent=workOpen?'Mostra meno lavori':`Mostra tutti i ${matching.length} lavori`;}
+  document.querySelector('#work-count').textContent=english?`${matching.length} ${matching.length===1?'project':'projects'}`:`${matching.length} ${matching.length===1?'lavoro':'lavori'}`;
+  if(workToggle){workToggle.hidden=matching.length<=limit&&!workOpen||workFilter!=='all';workToggle.setAttribute('aria-expanded',String(workOpen));workToggle.textContent=workOpen?(english?'Show fewer projects':'Mostra meno lavori'):(english?`Show all ${matching.length} projects`:`Mostra tutti i ${matching.length} lavori`);}
 }
 workToggle?.addEventListener('click',()=>{workOpen=!workOpen;renderWork();if(!workOpen)document.querySelector('#lavori').scrollIntoView();track('archive_open');});
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
   workFilter=button.dataset.filter;renderWork();
+  // Il filtro resta nell'indirizzo, così si può condividere "solo 3D".
+  const url=new URL(location.href);if(workFilter==='all')url.searchParams.delete('filtro');else url.searchParams.set('filtro',workFilter);history.replaceState(null,'',url);
 }));
+const startFilter=new URLSearchParams(location.search).get('filtro');
+if(startFilter&&document.querySelector(`[data-filter="${CSS.escape(startFilter)}"]`)){workFilter=startFilter;document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===startFilter)));}
 renderWork();
 const preview=document.querySelector('#work-preview');
 if(preview&&workIndex&&matchMedia('(hover: hover) and (pointer: fine)').matches){

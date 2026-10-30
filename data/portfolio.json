@@ -5,7 +5,7 @@
       "disc": "motion",
       "size": "lg",
       "yt": 1,
-      "thumb": "img/copertine/zodiac.png",
+      "thumb": "img/copertine/zodiac.webp",
       "meta": "Opening Sequence / 3D",
       "title": "Zodiac",
       "act": "video",
@@ -15,8 +15,8 @@
       "kind": "Progetto personale",
       "description": "Una sequenza di apertura che esplora il rapporto tra tipografia, atmosfera e immagini tridimensionali.",
       "role": "Motion design e 3D",
-      "thumbWidth": 3839,
-      "thumbHeight": 2159
+      "thumbWidth": 1920,
+      "thumbHeight": 1080
     },
     {
       "disc": "motion",
@@ -463,8 +463,8 @@
       "featured": false,
       "kind": "Progetto selezionato",
       "description": "AR · Pope Tarot AR",
-      "thumbWidth": 1748,
-      "thumbHeight": 2480
+      "thumbWidth": 1410,
+      "thumbHeight": 2000
     },
     {
       "disc": "dimension",

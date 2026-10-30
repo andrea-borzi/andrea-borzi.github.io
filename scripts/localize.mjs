@@ -21,7 +21,7 @@ for(const path of ['index.html',...data.projects.map(p=>`projects/${p.slug}.html
  let it=await readFile(path,'utf8');it=enhance(it,path);await writeFile(path,it);
  let en=translateHTML(it).replace('<html lang="it">','<html lang="en">').replace('content="it_IT"','content="en_GB"');
  // Resolve local paths from the parallel /en/ directory, keeping project links within English.
- en=en.replace(/((?:href|src)=")([^"#]+)(")/g,(all,a,v,b)=>{
+ en=en.replace(/((?:href|src|poster|data-thumb)=")([^"#]+)(")/g,(all,a,v,b)=>{
   if(/^(https?:|mailto:|data:)/.test(v))return all;
   if(v.startsWith('../assets/')||v.startsWith('../img/')||/^\.\.\/(favicon\.(png|svg|ico)|apple-touch-icon\.png|social-preview\.png)$/.test(v))return a+'../'+v+b;
   if(/^(assets\/|img\/|favicon\.(png|svg|ico)|apple-touch-icon\.png|social-preview\.png)/.test(v))return a+'../'+v+b;

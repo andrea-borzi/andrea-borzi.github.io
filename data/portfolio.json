@@ -585,31 +585,19 @@
     },
     {
       "disc": "light",
-      "thumb": "img/copertine/witcher1.webp",
-      "meta": "Virtual Photo",
-      "title": "The Witcher 3",
-      "act": "single",
-      "arg": "img/copertine/witcher1.webp",
-      "slug": "the-witcher-3",
+      "size": "lg",
+      "thumb": "img/copertine/virtual.webp",
+      "meta": "The Witcher 3 · Cyberpunk 2077",
+      "title": "Virtual Photography",
+      "act": "photo",
+      "arg": "virtual",
+      "badge": "8 foto",
+      "slug": "virtual-photography",
       "featured": false,
       "kind": "Serie e studi visivi",
-      "description": "Virtual Photo · The Witcher 3",
-      "thumbWidth": 1536,
-      "thumbHeight": 1152
-    },
-    {
-      "disc": "light",
-      "thumb": "img/copertine/witcher2.webp",
-      "meta": "Virtual Photo",
-      "title": "The Witcher 3 · II",
-      "act": "single",
-      "arg": "img/copertine/witcher2.webp",
-      "slug": "the-witcher-3-ii",
-      "featured": false,
-      "kind": "Serie e studi visivi",
-      "description": "Virtual Photo · The Witcher 3 · II",
-      "thumbWidth": 1690,
-      "thumbHeight": 1056
+      "description": "Fotografie scattate dentro The Witcher 3 e Cyberpunk 2077: inquadratura, luce e color scelti come su un set.",
+      "thumbWidth": 1920,
+      "thumbHeight": 1080
     }
   ],
   "photos": {
@@ -681,6 +669,16 @@
       "img/seriecatania/12.webp",
       "img/seriecatania/13.webp",
       "img/seriecatania/14.webp"
+    ],
+    "virtual": [
+      "img/virtual/01.webp",
+      "img/virtual/02.webp",
+      "img/virtual/03.webp",
+      "img/virtual/04.webp",
+      "img/virtual/05.webp",
+      "img/virtual/06.webp",
+      "img/virtual/07.webp",
+      "img/virtual/08.webp"
     ]
   },
   "instagram": {

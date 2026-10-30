@@ -168,7 +168,7 @@ async function loadViews(){
     const el=document.querySelector('#view-count');if(!el)return;
     animateCount(el,stats.totalViews);
     const date=new Date(stats.updatedAt);if(!Number.isFinite(date.getTime()))return;
-    document.querySelector('#views-date').textContent=`${stats.videoCount} video · ${english?'updated':'aggiornato'} ${new Intl.DateTimeFormat(locale,{dateStyle:'medium'}).format(date)}${Date.now()-date.getTime()>3*86400000?(english?' · awaiting update':' · in attesa di aggiornamento'):''}`;
+    document.querySelector('#views-date').textContent=`${english?`Across ${stats.videoCount} videos, channels and projects`:`Su ${stats.videoCount} video, tra canali e progetti`} · ${english?'updated':'aggiornato'} ${new Intl.DateTimeFormat(locale,{dateStyle:'medium'}).format(date)}${Date.now()-date.getTime()>3*86400000?(english?' · awaiting update':' · in attesa di aggiornamento'):''}`;
     el.title=english?'Total YouTube views, not unique website visitors.':'Somma delle visualizzazioni complessive su YouTube, non visitatori unici del sito.';
   }catch{/* Un dato non disponibile non viene presentato come zero. */}
 }
